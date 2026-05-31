@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Noel Estrada &amp; Irene Tapiahan Wedding Invitation — July 7, 2026">
+<title>Noel & Irene — Wedding Invitation</title>
+
+<style>
+/* === GOOGLE FONTS === */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Lato:wght@300;400&display=swap');
+
+/* === CSS CUSTOM PROPERTIES === */
+:root {
+  --color-pink: #f37894;
+  --color-navy: #001b43;
+  --color-white: #ffffff;
+  --color-pink-20: rgba(243, 120, 148, 0.20);
+  --color-pink-30: rgba(243, 120, 148, 0.30);
+  --color-pink-50: rgba(243, 120, 148, 0.50);
+  --color-navy-70: rgba(0, 27, 67, 0.70);
+  --color-navy-10: rgba(0, 27, 67, 0.10);
+  --transition-base: 200ms ease;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Lato', sans-serif;
+}
+
+/* === RESET & BASE === */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--color-navy);
+  background-color: var(--color-white);
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button, a {
+  cursor: pointer;
+  min-height: 48px;
+  min-width: 48px;
+}
+
+/* === FOCUS VISIBLE === */
+:focus-visible {
+  outline: 2px solid var(--color-pink);
+  outline-offset: 3px;
+}
+
+/* === SCROLL ANIMATION BASE === */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  will-change: transform;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   === HERO SECTION ===
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--color-white);
+  padding: 2rem 1.5rem;
+}
+
+.hero__floral-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hero__floral-svg {
+  width: 100%;
+  height: 100%;
+  animation: floralRotate 60s linear infinite;
+  will-change: transform;
+}
+
+@keyframes floralRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 700px;
+  width: 100%;
+}
+
+/* Staggered hero fade-ins */
+.hero__cross {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: heroPop 0.8s ease forwards;
+  animation-delay: 0.2s;
+  will-change: transform;
+  margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+.hero__names {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(3rem, 10vw, 6rem);
+  color: var(--color-navy);
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: heroPop 0.9s ease forwards;
+  animation-delay: 0.5s;
+  will-change: transform;
+}
+
+.hero__tagline {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  color: var(--color-navy);
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: heroPop 0.9s ease forwards;
+  animation-delay: 0.8s;
+  will-change: transform;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero__verse {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+  color: var(--color-navy-70);
+  margin-top: 1.5rem;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: heroPop 0.9s ease forwards;
+  animation-delay: 1.1s;
+  will-change: transform;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.hero__date {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--color-navy);
+  margin-top: 1.75rem;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: heroPop 0.9s ease forwards;
+  animation-delay: 1.4s;
+  will-change: transform;
+}
+
+.hero__divider {
+  width: 60px;
+  height: 2px;
+  background: var(--color-pink);
+  margin: 1.25rem auto;
+  opacity: 0;
+  animation: heroPop 0.9s ease forwards;
+  animation-delay: 1.3s;
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0;
+  animation: heroPop 0.9s ease forwards;
+  animation-delay: 1.7s;
+  will-change: transform;
+  text-decoration: none;
+  border: none;
+  background: none;
+  padding: 0.5rem;
+}
+
+.hero__scroll-arrow {
+  animation: bounceArrow 1.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes bounceArrow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+@keyframes heroPop {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   === SECTION SHARED STYLES ===
+   ============================================================ */
+.section {
+  padding: 5rem 1.5rem;
+}
+
+.section__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section__eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-bottom: 0.75rem;
+}
+
+.section__title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  color: var(--color-navy);
+  line-height: 1.2;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 auto 0;
+  opacity: 0.5;
+}
+
+.section-divider__line {
+  width: 60px;
+  height: 1px;
+  background: var(--color-pink);
+}
+
+/* ============================================================
+   === COUNTDOWN SECTION ===
+   ============================================================ */
+.countdown {
+  background-color: var(--color-white);
+  text-align: center;
+  padding: 4rem 1.5rem;
+  border-top: 1px solid var(--color-navy-10);
+  border-bottom: 1px solid var(--color-navy-10);
+}
+
+.countdown__label {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-bottom: 0.75rem;
+}
+
+.countdown__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: var(--color-navy);
+  margin-bottom: 2.5rem;
+}
+
+.countdown__timer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.countdown__box {
+  background-color: var(--color-navy);
+  border: 2px solid var(--color-pink);
+  border-radius: 8px;
+  padding: 1.25rem 1rem;
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  overflow: hidden;
+}
+
+.countdown__num {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 6vw, 3rem);
+  color: var(--color-white);
+  line-height: 1;
+  display: block;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform;
+}
+
+.countdown__num.flip {
+  animation: flipNum 0.3s ease;
+}
+
+@keyframes flipNum {
+  0%   { transform: rotateX(0deg); opacity: 1; }
+  50%  { transform: rotateX(-90deg); opacity: 0; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+
+.countdown__unit {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+}
+
+.countdown__passed {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--color-navy);
+  display: none;
+}
+
+/* ============================================================
+   === EVENT DETAILS SECTION ===
+   ============================================================ */
+.details {
+  background-color: var(--color-white);
+}
+
+.details__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+  .details__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.details__card {
+  background: var(--color-white);
+  border: 2px solid var(--color-navy);
+  border-radius: 12px;
+  padding: 2rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.details__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--color-pink);
+}
+
+.details__card-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-bottom: 0.5rem;
+}
+
+.details__card-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.7rem;
+  color: var(--color-navy);
+  margin-bottom: 0.35rem;
+}
+
+.details__denomination {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: var(--color-navy-70);
+  margin-bottom: 1.25rem;
+  font-style: italic;
+}
+
+.details__info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.details__icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.details__info-text {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.95rem;
+  color: var(--color-navy);
+  line-height: 1.5;
+}
+
+.details__info-text strong {
+  font-weight: 400;
+  display: block;
+}
+
+.details__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
+  min-height: 48px;
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--primary {
+  background-color: var(--color-navy);
+  color: var(--color-white);
+  border-color: var(--color-navy);
+}
+
+.btn--primary:hover {
+  background-color: transparent;
+  color: var(--color-navy);
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: var(--color-pink);
+  border-color: var(--color-pink);
+}
+
+.btn--outline:hover {
+  background-color: var(--color-pink);
+  color: var(--color-white);
+}
+
+.btn--white {
+  background-color: var(--color-white);
+  color: var(--color-navy);
+  border-color: var(--color-white);
+}
+
+.btn--white:hover {
+  background-color: transparent;
+  color: var(--color-white);
+}
+
+/* ============================================================
+   === RSVP SECTION ===
+   ============================================================ */
+.rsvp {
+  background-color: var(--color-navy);
+  color: var(--color-white);
+}
+
+.rsvp .section__eyebrow {
+  color: var(--color-pink);
+}
+
+.rsvp .section__title {
+  color: var(--color-white);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rsvp__form-wrap {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.rsvp__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form__label {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+}
+
+.form__input,
+.form__textarea,
+.form__select {
+  background-color: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--color-white);
+  transition: border-color var(--transition-base), background-color var(--transition-base);
+  width: 100%;
+  min-height: 48px;
+  appearance: none;
+}
+
+.form__input::placeholder,
+.form__textarea::placeholder {
+  color: rgba(255,255,255,0.35);
+}
+
+.form__input:focus,
+.form__textarea:focus,
+.form__select:focus {
+  outline: none;
+  border-color: var(--color-pink);
+  background-color: rgba(255,255,255,0.10);
+}
+
+.form__input.error,
+.form__textarea.error {
+  border-color: var(--color-pink);
+  animation: shake 0.35s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-5px); }
+  75%       { transform: translateX(5px); }
+}
+
+.form__error {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--color-pink);
+  min-height: 1em;
+  display: none;
+}
+
+.form__error.visible {
+  display: block;
+}
+
+.form__textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Custom radio buttons */
+.form__radio-group {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.form__radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.9);
+  min-height: 48px;
+  padding: 0.5rem 0;
+}
+
+.form__radio-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.form__radio-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color var(--transition-base);
+}
+
+.form__radio-input:checked + .form__radio-custom {
+  border-color: var(--color-pink);
+}
+
+.form__radio-input:checked + .form__radio-custom::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: var(--color-pink);
+  border-radius: 50%;
+}
+
+.form__radio-input:focus-visible + .form__radio-custom {
+  outline: 2px solid var(--color-pink);
+  outline-offset: 3px;
+}
+
+/* Guest count select */
+.form__select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f37894' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.form__select option {
+  background-color: var(--color-navy);
+  color: var(--color-white);
+}
+
+.rsvp__submit {
+  margin-top: 0.5rem;
+}
+
+.rsvp__submit .btn {
+  width: 100%;
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+/* Success state */
+.rsvp__success {
+  display: none;
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.rsvp__success.visible {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.checkmark-svg {
+  width: 80px;
+  height: 80px;
+}
+
+.checkmark-circle {
+  stroke: var(--color-pink);
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: drawCircle 0.6s ease forwards;
+}
+
+.checkmark-check {
+  stroke: var(--color-pink);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: drawCheck 0.4s ease 0.6s forwards;
+}
+
+@keyframes drawCircle {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes drawCheck {
+  to { stroke-dashoffset: 0; }
+}
+
+.rsvp__success-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-white);
+}
+
+.rsvp__success-text {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  color: rgba(255,255,255,0.75);
+  font-size: 1rem;
+}
+
+/* ============================================================
+   === GALLERY SECTION ===
+   ============================================================ */
+.gallery {
+  background-color: var(--color-white);
+  overflow: hidden;
+}
+
+/* Mobile: horizontal scroll strip */
+.gallery__strip {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 1.5rem 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-pink) transparent;
+}
+
+.gallery__strip::-webkit-scrollbar {
+  height: 4px;
+}
+.gallery__strip::-webkit-scrollbar-track {
+  background: transparent;
+}
+.gallery__strip::-webkit-scrollbar-thumb {
+  background: var(--color-pink);
+  border-radius: 2px;
+}
+
+.gallery__item {
+  flex-shrink: 0;
+  width: 260px;
+  height: 320px;
+  border-radius: 8px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+/* Desktop: masonry-style grid */
+@media (min-width: 900px) {
+  .gallery__strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 1rem;
+    overflow: visible;
+    padding: 0;
+    max-width: 1000px;
+    margin: 0 auto;
+    scrollbar-width: none;
+  }
+
+  .gallery__strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery__item {
+    width: auto;
+    height: 300px;
+    scroll-snap-align: none;
+  }
+
+  .gallery__item:nth-child(1) { grid-row: span 2; height: 500px; }
+  .gallery__item:nth-child(4) { grid-row: span 2; height: 500px; }
+}
+
+.gallery__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  will-change: transform;
+}
+
+.gallery__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(243, 120, 148, 0);
+  transition: background 0.4s ease;
+}
+
+.gallery__item:hover .gallery__img {
+  transform: scale(1.03);
+}
+
+.gallery__item:hover .gallery__overlay {
+  background: rgba(243, 120, 148, 0.15);
+}
+
+/* ============================================================
+   === WEDDING PARTY SECTION ===
+   ============================================================ */
+.party {
+  background-color: var(--color-white);
+  border-top: 1px solid var(--color-navy-10);
+}
+
+.party__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .party__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.party__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+.party__avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--color-pink);
+  flex-shrink: 0;
+}
+
+.party__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.party__name {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--color-navy);
+}
+
+.party__role {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+}
+
+/* ============================================================
+   === FOOTER ===
+   ============================================================ */
+.footer {
+  background-color: var(--color-navy);
+  color: var(--color-white);
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+}
+
+.footer__names {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  color: var(--color-white);
+  margin-bottom: 0.25rem;
+}
+
+.footer__date {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.75rem;
+}
+
+.footer__faith {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--color-pink);
+  margin-bottom: 1.75rem;
+}
+
+.footer__verse {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.55);
+  max-width: 440px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+
+.footer__social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: border-color var(--transition-base), color var(--transition-base);
+}
+
+.footer__social-link:hover {
+  border-color: var(--color-pink);
+  color: var(--color-pink);
+}
+
+.footer__copy {
+  margin-top: 2rem;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ============================================================
+   === MISC UTILITIES ===
+   ============================================================ */
+.container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-center { text-align: center; }
+
+@media (min-width: 1200px) {
+  .section {
+    padding: 6rem 2rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     === HERO SECTION ===
+     ============================================================ -->
+<main role="main">
+<section class="hero" aria-label="Wedding invitation hero">
+
+  <!-- Animated Floral Frame -->
+  <div class="hero__floral-frame" aria-hidden="true">
+    <svg class="hero__floral-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <g fill="none" stroke="#f37894" stroke-opacity="0.20" stroke-width="1.2" stroke-linecap="round">
+        <!-- Corner flourish top-left -->
+        <path d="M60,60 Q80,40 100,60 Q80,80 60,60Z"/>
+        <path d="M60,60 Q40,80 60,100 Q80,80 60,60Z"/>
+        <path d="M60,60 Q85,85 110,60 Q85,35 60,60Z"/>
+        <path d="M60,60 Q35,85 60,110 Q85,85 60,60Z"/>
+        <path d="M60,60 L60,20 M60,60 L20,60"/>
+        <path d="M80,30 Q90,15 100,25 Q85,35 80,30Z"/>
+        <path d="M30,80 Q15,90 25,100 Q35,85 30,80Z"/>
+        <circle cx="60" cy="60" r="4"/>
+        <circle cx="60" cy="60" r="8" stroke-opacity="0.1"/>
+        <!-- Stem lines -->
+        <path d="M60,60 Q100,90 130,70"/>
+        <path d="M60,60 Q90,100 70,130"/>
+        <!-- Leaf top-left -->
+        <path d="M110,70 Q130,50 120,40 Q115,55 110,70Z"/>
+        <path d="M70,110 Q50,130 40,120 Q55,115 70,110Z"/>
+
+        <!-- Corner flourish top-right -->
+        <path d="M740,60 Q720,40 700,60 Q720,80 740,60Z"/>
+        <path d="M740,60 Q760,80 740,100 Q720,80 740,60Z"/>
+        <path d="M740,60 Q715,85 690,60 Q715,35 740,60Z"/>
+        <path d="M740,60 Q765,85 740,110 Q715,85 740,60Z"/>
+        <path d="M740,60 L740,20 M740,60 L780,60"/>
+        <path d="M720,30 Q710,15 700,25 Q715,35 720,30Z"/>
+        <path d="M770,80 Q785,90 775,100 Q765,85 770,80Z"/>
+        <circle cx="740" cy="60" r="4"/>
+        <circle cx="740" cy="60" r="8" stroke-opacity="0.1"/>
+        <path d="M740,60 Q700,90 670,70"/>
+        <path d="M740,60 Q710,100 730,130"/>
+        <path d="M690,70 Q670,50 680,40 Q685,55 690,70Z"/>
+        <path d="M730,110 Q750,130 760,120 Q745,115 730,110Z"/>
+
+        <!-- Corner flourish bottom-left -->
+        <path d="M60,740 Q80,760 100,740 Q80,720 60,740Z"/>
+        <path d="M60,740 Q40,720 60,700 Q80,720 60,740Z"/>
+        <path d="M60,740 Q85,715 110,740 Q85,765 60,740Z"/>
+        <path d="M60,740 Q35,715 60,700 Q85,715 60,740Z" stroke-opacity="0.1"/>
+        <path d="M60,740 L60,780 M60,740 L20,740"/>
+        <circle cx="60" cy="740" r="4"/>
+        <path d="M60,740 Q100,710 130,730"/>
+        <path d="M110,730 Q130,750 120,760 Q115,745 110,730Z"/>
+
+        <!-- Corner flourish bottom-right -->
+        <path d="M740,740 Q720,760 700,740 Q720,720 740,740Z"/>
+        <path d="M740,740 Q760,720 740,700 Q720,720 740,740Z"/>
+        <path d="M740,740 Q715,715 690,740 Q715,765 740,740Z"/>
+        <path d="M740,740 L740,780 M740,740 L780,740"/>
+        <circle cx="740" cy="740" r="4"/>
+        <path d="M740,740 Q700,710 670,730"/>
+        <path d="M690,730 Q670,750 680,760 Q685,745 690,730Z"/>
+
+        <!-- Top center floral -->
+        <path d="M380,30 Q390,10 400,30 Q410,10 420,30"/>
+        <path d="M400,30 L400,50"/>
+        <path d="M388,38 Q378,48 388,58 Q398,48 388,38Z"/>
+        <path d="M412,38 Q422,48 412,58 Q402,48 412,38Z"/>
+
+        <!-- Bottom center floral -->
+        <path d="M380,770 Q390,790 400,770 Q410,790 420,770"/>
+        <path d="M400,770 L400,750"/>
+        <path d="M388,762 Q378,752 388,742 Q398,752 388,762Z"/>
+        <path d="M412,762 Q422,752 412,742 Q402,752 412,762Z"/>
+
+        <!-- Left center -->
+        <path d="M30,380 Q10,390 30,400 Q10,410 30,420"/>
+        <path d="M30,400 L50,400"/>
+        <path d="M38,388 Q48,378 58,388 Q48,398 38,388Z"/>
+        <path d="M38,412 Q48,422 58,412 Q48,402 38,412Z"/>
+
+        <!-- Right center -->
+        <path d="M770,380 Q790,390 770,400 Q790,410 770,420"/>
+        <path d="M770,400 L750,400"/>
+        <path d="M762,388 Q752,378 742,388 Q752,398 762,388Z"/>
+        <path d="M762,412 Q752,422 742,412 Q752,402 762,412Z"/>
+
+        <!-- Delicate scattered petals -->
+        <path d="M200,100 Q210,85 220,100 Q210,115 200,100Z"/>
+        <path d="M580,100 Q590,85 600,100 Q590,115 580,100Z"/>
+        <path d="M130,200 Q115,210 130,220 Q145,210 130,200Z"/>
+        <path d="M670,200 Q655,210 670,220 Q685,210 670,200Z"/>
+        <path d="M100,580 Q85,590 100,600 Q115,590 100,580Z"/>
+        <path d="M700,580 Q685,590 700,600 Q715,590 700,580Z"/>
+        <path d="M200,700 Q210,685 220,700 Q210,715 200,700Z"/>
+        <path d="M580,700 Q590,685 600,700 Q590,715 580,700Z"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Hero Content -->
+  <div class="hero__content">
+
+    <!-- Cross SVG -->
+    <div class="hero__cross" aria-hidden="true">
+      <svg width="36" height="44" viewBox="0 0 36 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="14" y="0" width="8" height="44" rx="2" fill="#f37894" opacity="0.75"/>
+        <rect x="0" y="12" width="36" height="8" rx="2" fill="#f37894" opacity="0.75"/>
+      </svg>
+    </div>
+
+    <h1 class="hero__names">Noel &amp; Irene</h1>
+
+    <p class="hero__tagline">
+      Together with their families and in the presence of God,<br>
+      joyfully invite you to celebrate their wedding
+    </p>
+
+    <blockquote class="hero__verse">
+      "And now these three remain: faith, hope and love.<br>
+      But the greatest of these is love."<br>
+      — 1 Corinthians 13:13
+    </blockquote>
+
+    <div class="hero__divider" aria-hidden="true"></div>
+
+    <p class="hero__date">Tuesday, the Seventh of July, Two Thousand and Twenty-Six</p>
+
+  </div>
+
+  <!-- Scroll indicator -->
+  <a class="hero__scroll" href="#countdown" aria-label="Scroll to countdown">
+    <span class="hero__scroll-arrow" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 5v14M5 12l7 7 7-7" stroke="#f37894" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </a>
+
+</section>
+
+<!-- ============================================================
+     === SECTION DIVIDER ===
+     ============================================================ -->
+<div class="section-divider" aria-hidden="true">
+  <div class="section-divider__line"></div>
+  <svg width="18" height="22" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
+    <rect x="7" y="0" width="4" height="22" rx="1" fill="#f37894" opacity="0.5"/>
+    <rect x="0" y="6" width="18" height="4" rx="1" fill="#f37894" opacity="0.5"/>
+  </svg>
+  <div class="section-divider__line"></div>
+</div>
+
+<!-- ============================================================
+     === COUNTDOWN SECTION ===
+     ============================================================ -->
+<section class="countdown reveal" id="countdown" aria-label="Wedding countdown timer">
+  <p class="countdown__label">Counting Down To</p>
+  <h2 class="countdown__title">July 7, 2026</h2>
+
+  <div class="countdown__timer" role="timer" aria-live="polite" aria-label="Time until the wedding">
+    <div class="countdown__box">
+      <span class="countdown__num" id="cd-days">00</span>
+      <span class="countdown__unit">Days</span>
+    </div>
+    <div class="countdown__box">
+      <span class="countdown__num" id="cd-hours">00</span>
+      <span class="countdown__unit">Hours</span>
+    </div>
+    <div class="countdown__box">
+      <span class="countdown__num" id="cd-minutes">00</span>
+      <span class="countdown__unit">Minutes</span>
+    </div>
+    <div class="countdown__box">
+      <span class="countdown__num" id="cd-seconds">00</span>
+      <span class="countdown__unit">Seconds</span>
+    </div>
+  </div>
+
+  <p class="countdown__passed" id="cd-passed" aria-live="polite">
+    ✝ The day is here! Praise God! ✝
+  </p>
+</section>
+
+<!-- ============================================================
+     === SECTION DIVIDER ===
+     ============================================================ -->
+<div class="section-divider" aria-hidden="true">
+  <div class="section-divider__line"></div>
+  <svg width="20" height="16" viewBox="0 0 20 16" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 0 C10 0 0 4 0 9 C0 12.5 4.5 16 10 16 C15.5 16 20 12.5 20 9 C20 4 10 0 10 0Z" fill="#f37894" opacity="0.4"/>
+    <path d="M10 3 C10 3 3 6 3 9.5 C3 11.8 6 14 10 14 C14 14 17 11.8 17 9.5 C17 6 10 3 10 3Z" fill="#f37894" opacity="0.2"/>
+  </svg>
+  <div class="section-divider__line"></div>
+</div>
+
+<!-- ============================================================
+     === EVENT DETAILS SECTION ===
+     ============================================================ -->
+<section class="section details reveal" id="details" aria-label="Event details">
+  <div class="container">
+    <header class="section__header">
+      <p class="section__eyebrow">Event Details</p>
+      <h2 class="section__title">The Celebration</h2>
+    </header>
+
+    <div class="details__grid">
+
+      <!-- Ceremony Card -->
+      <article class="details__card reveal" aria-label="Ceremony details">
+        <p class="details__card-eyebrow">Ceremony</p>
+        <h3 class="details__card-title">Bethel Fundamental Baptist Church</h3>
+        <p class="details__denomination">Fundamental Baptist Church</p>
+
+        <div class="details__info-row">
+          <span class="details__icon" aria-hidden="true">
+            <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 0C5.13 0 2 3.13 2 7c0 5.25 7 15 7 15s7-9.75 7-15c0-3.87-3.13-7-7-7z" stroke="#f37894" stroke-width="1.5" fill="none"/>
+              <circle cx="9" cy="7" r="2.5" stroke="#f37894" stroke-width="1.5" fill="none"/>
+            </svg>
+          </span>
+          <div class="details__info-text">
+            <strong>Purok Guiho, Maranding Lala</strong>
+            Lanao del Norte
+          </div>
+        </div>
+
+        <div class="details__info-row">
+          <span class="details__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="10" r="8.5" stroke="#f37894" stroke-width="1.5"/>
+              <path d="M10 5v5.5l3.5 2" stroke="#f37894" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <div class="details__info-text">
+            <strong>1:00 PM</strong>
+            Doors open at 12:30 PM
+          </div>
+        </div>
+
+        <div class="details__info-row">
+          <span class="details__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1.5" y="3.5" width="17" height="15" rx="2" stroke="#f37894" stroke-width="1.5"/>
+              <path d="M1.5 8h17" stroke="#f37894" stroke-width="1.5"/>
+              <path d="M6 1.5v4M14 1.5v4" stroke="#f37894" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <div class="details__info-text">
+            <strong>Tuesday, July 7, 2026</strong>
+          </div>
+        </div>
+
+        <div class="details__actions">
+          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--primary" aria-label="Open ceremony location in Google Maps">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 0C4.24 0 2 2.24 2 5c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="currentColor"/></svg>
+            View on Map
+          </a>
+          <button class="btn btn--outline" onclick="generateICS('ceremony')" aria-label="Add ceremony to calendar">
+            Add to Calendar
+          </button>
+        </div>
+      </article>
+
+      <!-- Reception Card -->
+      <article class="details__card reveal" aria-label="Reception details">
+        <p class="details__card-eyebrow">Reception</p>
+        <h3 class="details__card-title">Horizon Resort &amp; Splashway</h3>
+        <p class="details__denomination">Bag-ong Dawis, Baroy, Lanao del Norte</p>
+
+        <div class="details__info-row">
+          <span class="details__icon" aria-hidden="true">
+            <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 0C5.13 0 2 3.13 2 7c0 5.25 7 15 7 15s7-9.75 7-15c0-3.87-3.13-7-7-7z" stroke="#f37894" stroke-width="1.5" fill="none"/>
+              <circle cx="9" cy="7" r="2.5" stroke="#f37894" stroke-width="1.5" fill="none"/>
+            </svg>
+          </span>
+          <div class="details__info-text">
+            <strong>Bag-ong Dawis, Baroy</strong>
+            Lanao del Norte
+          </div>
+        </div>
+
+        <div class="details__info-row">
+          <span class="details__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="10" r="8.5" stroke="#f37894" stroke-width="1.5"/>
+              <path d="M10 5v5.5l3.5 2" stroke="#f37894" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <div class="details__info-text">
+            <strong>Following the Ceremony</strong>
+            Reception begins after 1:00 PM
+          </div>
+        </div>
+
+        <div class="details__info-row">
+          <span class="details__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1.5" y="3.5" width="17" height="15" rx="2" stroke="#f37894" stroke-width="1.5"/>
+              <path d="M1.5 8h17" stroke="#f37894" stroke-width="1.5"/>
+              <path d="M6 1.5v4M14 1.5v4" stroke="#f37894" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <div class="details__info-text">
+            <strong>Tuesday, July 7, 2026</strong>
+          </div>
+        </div>
+
+        <div class="details__actions">
+          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--primary" aria-label="Open reception location in Google Maps">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 0C4.24 0 2 2.24 2 5c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="currentColor"/></svg>
+            View on Map
+          </a>
+          <button class="btn btn--outline" onclick="generateICS('reception')" aria-label="Add reception to calendar">
+            Add to Calendar
+          </button>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     === SECTION DIVIDER ===
+     ============================================================ -->
+<div class="section-divider" aria-hidden="true">
+  <div class="section-divider__line"></div>
+  <svg width="18" height="22" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
+    <rect x="7" y="0" width="4" height="22" rx="1" fill="#f37894" opacity="0.5"/>
+    <rect x="0" y="6" width="18" height="4" rx="1" fill="#f37894" opacity="0.5"/>
+  </svg>
+  <div class="section-divider__line"></div>
+</div>
+
+<!-- ============================================================
+     === RSVP SECTION ===
+     ============================================================ -->
+<section class="section rsvp" id="rsvp" aria-label="RSVP form">
+  <div class="container">
+    <header class="section__header">
+      <p class="section__eyebrow">RSVP</p>
+      <h2 class="section__title">Join Us in Celebrating God's Blessing</h2>
+    </header>
+
+    <div class="rsvp__form-wrap">
+
+      <!-- Success state (hidden until submitted) -->
+      <div class="rsvp__success" id="rsvp-success" role="alert" aria-live="polite">
+        <svg class="checkmark-svg" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle class="checkmark-circle" cx="26" cy="26" r="24"/>
+          <path class="checkmark-check" d="M14 27l9 9 16-16"/>
+        </svg>
+        <h3 class="rsvp__success-title">Thank you!</h3>
+        <p class="rsvp__success-text">We can't wait to celebrate with you.</p>
+      </div>
+
+      <!-- RSVP Form -->
+      <form class="rsvp__form" id="rsvp-form" novalidate aria-label="RSVP submission form">
+
+        <div class="form__group">
+          <label class="form__label" for="rsvp-name">Full Name</label>
+          <input
+            class="form__input"
+            type="text"
+            id="rsvp-name"
+            name="name"
+            placeholder="Your full name"
+            autocomplete="name"
+            aria-required="true"
+            aria-describedby="rsvp-name-error"
+          >
+          <span class="form__error" id="rsvp-name-error" role="alert">Please enter your full name.</span>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="rsvp-email">Email Address</label>
+          <input
+            class="form__input"
+            type="email"
+            id="rsvp-email"
+            name="email"
+            placeholder="your@email.com"
+            autocomplete="email"
+            aria-required="true"
+            aria-describedby="rsvp-email-error"
+          >
+          <span class="form__error" id="rsvp-email-error" role="alert">Please enter a valid email address.</span>
+        </div>
+
+        <div class="form__group" role="group" aria-labelledby="rsvp-attending-label">
+          <span class="form__label" id="rsvp-attending-label">Will you be attending?</span>
+          <div class="form__radio-group">
+            <label class="form__radio-label">
+              <input class="form__radio-input" type="radio" name="attending" value="yes" aria-required="true">
+              <span class="form__radio-custom" aria-hidden="true"></span>
+              Joyfully accepts
+            </label>
+            <label class="form__radio-label">
+              <input class="form__radio-input" type="radio" name="attending" value="no" aria-required="true">
+              <span class="form__radio-custom" aria-hidden="true"></span>
+              Regretfully declines
+            </label>
+          </div>
+          <span class="form__error" id="rsvp-attending-error" role="alert">Please select your attendance.</span>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="rsvp-guests">Number of Guests</label>
+          <select class="form__select form__input" id="rsvp-guests" name="guests" aria-required="true">
+            <option value="" disabled selected>Select number of guests</option>
+            <option value="1">1 Guest</option>
+            <option value="2">2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+            <option value="5">5 Guests</option>
+            <option value="6">6 Guests</option>
+          </select>
+          <span class="form__error" id="rsvp-guests-error" role="alert">Please select the number of guests.</span>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="rsvp-dietary">Dietary Restrictions</label>
+          <textarea
+            class="form__textarea"
+            id="rsvp-dietary"
+            name="dietary"
+            placeholder="Any allergies or dietary requirements? (optional)"
+            aria-label="Dietary restrictions or allergies"
+          ></textarea>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="rsvp-message">Special Message</label>
+          <textarea
+            class="form__textarea"
+            id="rsvp-message"
+            name="message"
+            placeholder="Share a blessing or kind words for the couple… (optional)"
+            aria-label="Special message or blessing for the couple"
+          ></textarea>
+        </div>
+
+        <div class="rsvp__submit">
+          <button type="submit" class="btn btn--white" aria-label="Submit your RSVP">
+            Send RSVP with Love
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     === SECTION DIVIDER ===
+     ============================================================ -->
+<div class="section-divider" aria-hidden="true">
+  <div class="section-divider__line"></div>
+  <svg width="20" height="16" viewBox="0 0 20 16" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 0 C10 0 0 4 0 9 C0 12.5 4.5 16 10 16 C15.5 16 20 12.5 20 9 C20 4 10 0 10 0Z" fill="#f37894" opacity="0.4"/>
+  </svg>
+  <div class="section-divider__line"></div>
+</div>
+
+<!-- ============================================================
+     === GALLERY SECTION ===
+     ============================================================ -->
+<section class="section gallery reveal" id="gallery" aria-label="Photo gallery">
+  <div class="container">
+    <header class="section__header">
+      <p class="section__eyebrow">Gallery</p>
+      <h2 class="section__title">Moments Together</h2>
+    </header>
+  </div>
+
+  <div class="gallery__strip" role="list">
+    <div class="gallery__item" role="listitem">
+      <img class="gallery__img" src="https://picsum.photos/seed/wedding1/600/750" alt="Noel and Irene engagement photo" loading="lazy" width="600" height="750">
+      <div class="gallery__overlay" aria-hidden="true"></div>
+    </div>
+    <div class="gallery__item" role="listitem">
+      <img class="gallery__img" src="https://picsum.photos/seed/wedding2/600/400" alt="Couple at sunset" loading="lazy" width="600" height="400">
+      <div class="gallery__overlay" aria-hidden="true"></div>
+    </div>
+    <div class="gallery__item" role="listitem">
+      <img class="gallery__img" src="https://picsum.photos/seed/wedding3/600/400" alt="Romantic garden portrait" loading="lazy" width="600" height="400">
+      <div class="gallery__overlay" aria-hidden="true"></div>
+    </div>
+    <div class="gallery__item" role="listitem">
+      <img class="gallery__img" src="https://picsum.photos/seed/wedding4/600/750" alt="Couple laughing together" loading="lazy" width="600" height="750">
+      <div class="gallery__overlay" aria-hidden="true"></div>
+    </div>
+    <div class="gallery__item" role="listitem">
+      <img class="gallery__img" src="https://picsum.photos/seed/wedding5/600/400" alt="Candid moment" loading="lazy" width="600" height="400">
+      <div class="gallery__overlay" aria-hidden="true"></div>
+    </div>
+    <div class="gallery__item" role="listitem">
+      <img class="gallery__img" src="https://picsum.photos/seed/wedding6/600/400" alt="Engagement celebration" loading="lazy" width="600" height="400">
+      <div class="gallery__overlay" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     === SECTION DIVIDER ===
+     ============================================================ -->
+<div class="section-divider" aria-hidden="true">
+  <div class="section-divider__line"></div>
+  <svg width="18" height="22" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
+    <rect x="7" y="0" width="4" height="22" rx="1" fill="#f37894" opacity="0.5"/>
+    <rect x="0" y="6" width="18" height="4" rx="1" fill="#f37894" opacity="0.5"/>
+  </svg>
+  <div class="section-divider__line"></div>
+</div>
+
+<!-- ============================================================
+     === WEDDING PARTY SECTION ===
+     ============================================================ -->
+<section class="section party" id="party" aria-label="Wedding party">
+  <div class="container">
+    <header class="section__header">
+      <p class="section__eyebrow">Wedding Party</p>
+      <h2 class="section__title">Those Who Stand With Us</h2>
+    </header>
+
+    <div class="party__grid">
+
+      <div class="party__card reveal" role="article" aria-label="Best Man">
+        <div class="party__avatar">
+          <img src="https://picsum.photos/seed/party1/200/200" alt="James — Best Man" loading="lazy" width="200" height="200">
+        </div>
+        <p class="party__name">James Rossi</p>
+        <p class="party__role">Best Man</p>
+      </div>
+
+      <div class="party__card reveal" role="article" aria-label="Maid of Honor">
+        <div class="party__avatar">
+          <img src="https://picsum.photos/seed/party2/200/200" alt="Elena — Maid of Honor" loading="lazy" width="200" height="200">
+        </div>
+        <p class="party__name">Elena Moretti</p>
+        <p class="party__role">Maid of Honor</p>
+      </div>
+
+      <div class="party__card reveal" role="article" aria-label="Groomsman">
+        <div class="party__avatar">
+          <img src="https://picsum.photos/seed/party3/200/200" alt="Lucas — Groomsman" loading="lazy" width="200" height="200">
+        </div>
+        <p class="party__name">Lucas Bianchi</p>
+        <p class="party__role">Groomsman</p>
+      </div>
+
+      <div class="party__card reveal" role="article" aria-label="Bridesmaid">
+        <div class="party__avatar">
+          <img src="https://picsum.photos/seed/party4/200/200" alt="Chiara — Bridesmaid" loading="lazy" width="200" height="200">
+        </div>
+        <p class="party__name">Chiara Ferrari</p>
+        <p class="party__role">Bridesmaid</p>
+      </div>
+
+      <div class="party__card reveal" role="article" aria-label="Groomsman">
+        <div class="party__avatar">
+          <img src="https://picsum.photos/seed/party5/200/200" alt="Marco — Groomsman" loading="lazy" width="200" height="200">
+        </div>
+        <p class="party__name">Antonio Costa</p>
+        <p class="party__role">Groomsman</p>
+      </div>
+
+      <div class="party__card reveal" role="article" aria-label="Bridesmaid">
+        <div class="party__avatar">
+          <img src="https://picsum.photos/seed/party6/200/200" alt="Giulia — Bridesmaid" loading="lazy" width="200" height="200">
+        </div>
+        <p class="party__name">Giulia Romano</p>
+        <p class="party__role">Bridesmaid</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================================================
+     === FOOTER ===
+     ============================================================ -->
+<footer class="footer" role="contentinfo" aria-label="Wedding footer">
+  <p class="footer__names">Noel &amp; Irene</p>
+  <p class="footer__date">July 7, 2026</p>
+  <p class="footer__faith">With love &amp; faith ✝</p>
+
+  <blockquote class="footer__verse">
+    "What God has joined together, let no one separate."<br>
+    — Matthew 19:6
+  </blockquote>
+
+  <nav class="footer__social" aria-label="Social media links">
+    <a class="footer__social-link" href="#" aria-label="Follow us on Instagram" rel="noopener noreferrer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8" fill="none"/>
+        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8" fill="none"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+      </svg>
+    </a>
+  </nav>
+
+  <p class="footer__copy">Noel &amp; Irene &copy; 2026 · Made with love &amp; faith</p>
+</footer>
+
+<script>
+/* === COUNTDOWN TIMER === */
+(function () {
+  const target = new Date('2026-07-07T13:00:00');
+  const els = {
+    days:    document.getElementById('cd-days'),
+    hours:   document.getElementById('cd-hours'),
+    minutes: document.getElementById('cd-minutes'),
+    seconds: document.getElementById('cd-seconds'),
+    passed:  document.getElementById('cd-passed'),
+    timer:   document.querySelector('.countdown__timer'),
+  };
+
+  const prev = { days: null, hours: null, minutes: null, seconds: null };
+
+  function pad(n) {
+    return String(n).padStart(2, '0');
+  }
+
+  function flipUpdate(el, key, val) {
+    const str = pad(val);
+    if (prev[key] !== str) {
+      el.classList.remove('flip');
+      void el.offsetWidth; // reflow
+      el.classList.add('flip');
+      el.textContent = str;
+      prev[key] = str;
+    }
+  }
+
+  function tick() {
+    const now  = new Date();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      if (els.timer) els.timer.style.display = 'none';
+      if (els.passed) els.passed.style.display = 'block';
+      return;
+    }
+
+    const days    = Math.floor(diff / 86400000);
+    const hours   = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000)  / 60000);
+    const seconds = Math.floor((diff % 60000)    / 1000);
+
+    flipUpdate(els.days,    'days',    days);
+    flipUpdate(els.hours,   'hours',   hours);
+    flipUpdate(els.minutes, 'minutes', minutes);
+    flipUpdate(els.seconds, 'seconds', seconds);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* === INTERSECTION OBSERVER FOR SCROLL ANIMATIONS === */
+(function () {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+})();
+
+/* === ICS CALENDAR GENERATOR === */
+function generateICS(type) {
+  const events = {
+    ceremony: {
+      summary:     'Noel & Irene Wedding Ceremony',
+      location:    'Purok Guiho, Maranding Lala, Lanao del Norte',
+      description: 'Wedding Ceremony at Bethel Fundamental Baptist Church. What God has joined together, let no one separate.',
+      dtstart:     '20260707T130000',
+      dtend:       '20260707T150000',
+    },
+    reception: {
+      summary:     'Noel & Irene Wedding Reception',
+      location:    'Bag-ong Dawis, Baroy, Lanao del Norte',
+      description: 'Wedding Reception at Horizon Resort & Splashway Waterpark, Bag-ong Dawis, Baroy, Lanao del Norte.',
+      dtstart:     '20260707T150000',
+      dtend:       '20260707T210000',
+    },
+  };
+
+  const ev = events[type];
+  if (!ev) return;
+
+  const uid = `${type}-noel-irene-2026@wedding`;
+  const now = new Date().toISOString().replace(/[-:.]/g, '').slice(0, 15) + 'Z';
+
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Noel & Irene Wedding//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    `UID:${uid}`,
+    `DTSTAMP:${now}`,
+    `DTSTART:${ev.dtstart}`,
+    `DTEND:${ev.dtend}`,
+    `SUMMARY:${ev.summary}`,
+    `LOCATION:${ev.location}`,
+    `DESCRIPTION:${ev.description}`,
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ].join('\r\n');
+
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `noel-irene-${type}.ics`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* === RSVP FORM VALIDATION & SUBMISSION === */
+(function () {
+  const form    = document.getElementById('rsvp-form');
+  const success = document.getElementById('rsvp-success');
+
+  if (!form) return;
+
+  function showError(id, show) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (show) el.classList.add('visible');
+    else       el.classList.remove('visible');
+  }
+
+  function markField(el, hasError) {
+    if (hasError) el.classList.add('error');
+    else          el.classList.remove('error');
+  }
+
+  function validateEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const name      = form.querySelector('#rsvp-name');
+    const email     = form.querySelector('#rsvp-email');
+    const attending = form.querySelector('input[name="attending"]:checked');
+    const guests    = form.querySelector('#rsvp-guests');
+
+    let valid = true;
+
+    // Name
+    const nameOk = name.value.trim().length >= 2;
+    markField(name, !nameOk);
+    showError('rsvp-name-error', !nameOk);
+    if (!nameOk) valid = false;
+
+    // Email
+    const emailOk = validateEmail(email.value.trim());
+    markField(email, !emailOk);
+    showError('rsvp-email-error', !emailOk);
+    if (!emailOk) valid = false;
+
+    // Attending
+    showError('rsvp-attending-error', !attending);
+    if (!attending) valid = false;
+
+    // Guests
+    const guestsOk = guests.value !== '';
+    markField(guests, !guestsOk);
+    showError('rsvp-guests-error', !guestsOk);
+    if (!guestsOk) valid = false;
+
+    if (!valid) {
+      // Focus first error field
+      const firstError = form.querySelector('.error, .form__error.visible');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // Build mailto fallback
+    const dietary = form.querySelector('#rsvp-dietary').value.trim();
+    const message = form.querySelector('#rsvp-message').value.trim();
+    const body = [
+      `Name: ${name.value.trim()}`,
+      `Email: ${email.value.trim()}`,
+      `Attending: ${attending.value}`,
+      `Guests: ${guests.value}`,
+      dietary ? `Dietary: ${dietary}` : '',
+      message ? `Message: ${message}` : '',
+    ].filter(Boolean).join('\n');
+
+    const mailtoHref = `mailto:rsvp@example.com?subject=RSVP%20from%20${encodeURIComponent(name.value.trim())}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoHref;
+
+    // Show success state
+    form.style.display = 'none';
+    success.classList.add('visible');
+    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  // Live clear errors on input
+  form.querySelectorAll('.form__input, .form__textarea, .form__select').forEach((el) => {
+    el.addEventListener('input', function () {
+      el.classList.remove('error');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
