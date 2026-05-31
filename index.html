@@ -930,6 +930,113 @@ button, a {
 }
 
 /* ============================================================
+   === ENTOURAGE LAYOUT ===
+   ============================================================ */
+.party__section-group {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.party__group-heading {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  color: var(--color-pink);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--color-pink-20);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.party__member-solo {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  color: var(--color-navy);
+}
+
+.party__member-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1.5rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.party__member-grid--3col {
+  max-width: 680px;
+}
+
+.party__member-grid--4col {
+  max-width: 800px;
+}
+
+@media (min-width: 600px) {
+  .party__member-grid--3col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .party__member-grid--4col {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.party__member-name {
+  font-family: var(--font-serif);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--color-navy);
+  padding: 0.35rem 0.25rem;
+  line-height: 1.4;
+}
+
+.party__special-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 740px;
+  margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+  .party__special-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .party__special-grid--3col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.party__special-card {
+  text-align: center;
+  padding: 1.25rem 1rem;
+  border: 1px solid var(--color-navy-10);
+  border-radius: 8px;
+  background: var(--color-white);
+}
+
+.party__special-role {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-bottom: 0.5rem;
+}
+
+.party__special-name {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--color-navy);
+  line-height: 1.5;
+}
+
+/* ============================================================
    === FOOTER ===
    ============================================================ */
 .footer {
@@ -1543,66 +1650,102 @@ button, a {
 </div>
 
 <!-- ============================================================
-     === WEDDING PARTY SECTION ===
+     === WEDDING ENTOURAGE SECTION ===
      ============================================================ -->
-<section class="section party" id="party" aria-label="Wedding party">
+<section class="section party" id="party" aria-label="Wedding entourage">
   <div class="container">
     <header class="section__header">
-      <p class="section__eyebrow">Wedding Party</p>
+      <p class="section__eyebrow">Wedding Entourage</p>
       <h2 class="section__title">Those Who Stand With Us</h2>
     </header>
 
-    <div class="party__grid">
-
-      <div class="party__card reveal" role="article" aria-label="Best Man">
-        <div class="party__avatar">
-          <img src="https://picsum.photos/seed/party1/200/200" alt="James — Best Man" loading="lazy" width="200" height="200">
-        </div>
-        <p class="party__name">James Rossi</p>
-        <p class="party__role">Best Man</p>
-      </div>
-
-      <div class="party__card reveal" role="article" aria-label="Maid of Honor">
-        <div class="party__avatar">
-          <img src="https://picsum.photos/seed/party2/200/200" alt="Elena — Maid of Honor" loading="lazy" width="200" height="200">
-        </div>
-        <p class="party__name">Elena Moretti</p>
-        <p class="party__role">Maid of Honor</p>
-      </div>
-
-      <div class="party__card reveal" role="article" aria-label="Groomsman">
-        <div class="party__avatar">
-          <img src="https://picsum.photos/seed/party3/200/200" alt="Lucas — Groomsman" loading="lazy" width="200" height="200">
-        </div>
-        <p class="party__name">Lucas Bianchi</p>
-        <p class="party__role">Groomsman</p>
-      </div>
-
-      <div class="party__card reveal" role="article" aria-label="Bridesmaid">
-        <div class="party__avatar">
-          <img src="https://picsum.photos/seed/party4/200/200" alt="Chiara — Bridesmaid" loading="lazy" width="200" height="200">
-        </div>
-        <p class="party__name">Chiara Ferrari</p>
-        <p class="party__role">Bridesmaid</p>
-      </div>
-
-      <div class="party__card reveal" role="article" aria-label="Groomsman">
-        <div class="party__avatar">
-          <img src="https://picsum.photos/seed/party5/200/200" alt="Marco — Groomsman" loading="lazy" width="200" height="200">
-        </div>
-        <p class="party__name">Antonio Costa</p>
-        <p class="party__role">Groomsman</p>
-      </div>
-
-      <div class="party__card reveal" role="article" aria-label="Bridesmaid">
-        <div class="party__avatar">
-          <img src="https://picsum.photos/seed/party6/200/200" alt="Giulia — Bridesmaid" loading="lazy" width="200" height="200">
-        </div>
-        <p class="party__name">Giulia Romano</p>
-        <p class="party__role">Bridesmaid</p>
-      </div>
-
+    <!-- Best Man -->
+    <div class="party__section-group reveal">
+      <h3 class="party__group-heading">Best Man</h3>
+      <p class="party__member-solo">Ptr. David N. Curacho</p>
     </div>
+
+    <!-- Groomsmen -->
+    <div class="party__section-group reveal">
+      <h3 class="party__group-heading">Groomsmen</h3>
+      <div class="party__member-grid party__member-grid--3col">
+        <p class="party__member-name">Velle Chan Cornelio</p>
+        <p class="party__member-name">Scott Lyndon Matula</p>
+        <p class="party__member-name">Cyrel John Rollo</p>
+        <p class="party__member-name">Kheny James Tapiahan</p>
+        <p class="party__member-name">John Michael Retiza</p>
+        <p class="party__member-name">Aaron Tapiahan</p>
+      </div>
+    </div>
+
+    <!-- Bridesmaids -->
+    <div class="party__section-group reveal">
+      <h3 class="party__group-heading">Bridesmaids</h3>
+      <div class="party__member-grid party__member-grid--4col">
+        <p class="party__member-name">Judibel Pascual</p>
+        <p class="party__member-name">Roe Lovene Ortiz</p>
+        <p class="party__member-name">Mary Grace Hinampas</p>
+        <p class="party__member-name">Missy Cayoso</p>
+        <p class="party__member-name">May Ann Padrones</p>
+        <p class="party__member-name">Mae Hope Caulina</p>
+        <p class="party__member-name">Jhanin Almerol</p>
+        <p class="party__member-name">Thea Yapac</p>
+      </div>
+    </div>
+
+    <!-- Bearers -->
+    <div class="party__section-group reveal">
+      <h3 class="party__group-heading">Bearers</h3>
+      <div class="party__special-grid party__special-grid--3col">
+        <div class="party__special-card">
+          <p class="party__special-role">To Carry Our Symbol of Love</p>
+          <p class="party__special-name">Cian Timothy Cabardo</p>
+        </div>
+        <div class="party__special-card">
+          <p class="party__special-role">To Carry Our Symbol of Faith</p>
+          <p class="party__special-name">Christian Terence Estrada</p>
+        </div>
+        <div class="party__special-card">
+          <p class="party__special-role">To Carry Our Symbol of Treasure</p>
+          <p class="party__special-name">Aerol Brix Baguio</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Principal Sponsors -->
+    <div class="party__section-group reveal">
+      <h3 class="party__group-heading">Principal Sponsors</h3>
+      <div class="party__special-grid party__special-grid--3col">
+        <div class="party__special-card">
+          <p class="party__special-role">To Clothe Us as One</p>
+          <p class="party__special-name">Ptr. Jayzon Quilly<br>&amp; Mrs. Carol Quilly</p>
+        </div>
+        <div class="party__special-card">
+          <p class="party__special-role">To Bind Us Together</p>
+          <p class="party__special-name">Ptr. Delbert Almerol<br>&amp; Mrs. Maria Exaltacion Almerol</p>
+        </div>
+        <div class="party__special-card">
+          <p class="party__special-role">To Light Our Path</p>
+          <p class="party__special-name">Mr. Ephraim Gumapac<br>&amp; Mrs. Lucille Gumapac</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flower Ladies & Girl -->
+    <div class="party__section-group reveal">
+      <h3 class="party__group-heading">To Shower Our Aisle with Beauty</h3>
+      <div class="party__special-grid">
+        <div class="party__special-card">
+          <p class="party__special-role">Flower Ladies</p>
+          <p class="party__special-name">Rohan Bree Cabalona<br>Thea Abigail Gumapac<br>Ryca Elisha Cabardo</p>
+        </div>
+        <div class="party__special-card">
+          <p class="party__special-role">Flower Girl</p>
+          <p class="party__special-name">Athena Brielle Cañete</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 </main>
