@@ -3,2738 +3,920 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Noel Estrada &amp; Irene Tapiahan Wedding Invitation — July 7, 2026">
-<title>Noel & Irene — Wedding Invitation</title>
+<meta name="description" content="Noel &amp; Irene — You Are Invited">
+<title>You Are Invited — Noel &amp; Irene</title>
 
 <style>
 /* === GOOGLE FONTS === */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Lato:wght@300;400&display=swap');
 
-/* === CSS CUSTOM PROPERTIES === */
+/* ============================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================ */
 :root {
-  --color-pink: #f37894;
-  --color-navy: #001b43;
-  --color-white: #ffffff;
-  --color-pink-20: rgba(243, 120, 148, 0.20);
-  --color-pink-30: rgba(243, 120, 148, 0.30);
-  --color-pink-50: rgba(243, 120, 148, 0.50);
-  --color-navy-70: rgba(0, 27, 67, 0.70);
-  --color-navy-10: rgba(0, 27, 67, 0.10);
+  --pink:  #f37894;
+  --navy:  #001b43;
+  --white: #ffffff;
+  --pink-glow: rgba(243, 120, 148, 0.22);
+  --navy-10:   rgba(0, 27, 67, 0.10);
+  --navy-50:   rgba(0, 27, 67, 0.50);
+  --navy-60:   rgba(0, 27, 67, 0.60);
+  --navy-70:   rgba(0, 27, 67, 0.70);
   --transition-base: 200ms ease;
-  --font-serif: 'Cormorant Garamond', serif;
-  --font-sans: 'Lato', sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans:  'Lato', system-ui, sans-serif;
 }
 
-/* === RESET & BASE === */
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
-}
-
-body {
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--white);
   font-family: var(--font-sans);
-  font-weight: 400;
-  color: var(--color-navy);
-  background-color: var(--color-white);
-  overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
-  line-height: 1.6;
+  overflow: hidden;
 }
 
-img {
-  max-width: 100%;
-  display: block;
-}
-
-button, a {
+button {
+  font-family: inherit;
   cursor: pointer;
-  min-height: 48px;
-  min-width: 48px;
+  border: none;
+  background: none;
 }
 
-/* === FOCUS VISIBLE === */
 :focus-visible {
-  outline: 2px solid var(--color-pink);
+  outline: 2px solid var(--pink);
   outline-offset: 3px;
 }
 
-/* === SCROLL ANIMATION BASE === */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-  will-change: transform;
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.reveal.visible {
+/* ============================================================
+   STAGE SYSTEM
+   ============================================================ */
+.stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  transition: opacity 0.6s ease;
+  will-change: opacity;
+}
+
+.stage.is-fading  { opacity: 0; pointer-events: none; }
+.stage.is-gone    { display: none; }
+
+/* ============================================================
+   STAGE 1 — LOADING SCREEN
+   ============================================================ */
+#stage-loading {
+  z-index: 100;
+  gap: 1.25rem;
+}
+
+/* Cross + rings icon */
+.load__icon {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Names */
+.load__names {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 7vw, 3rem);
+  color: var(--navy);
+  text-align: center;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+/* Date */
+.load__date {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--navy-50);
+  text-align: center;
+}
+
+/* SVG arc spinner */
+.load__spinner {
+  position: relative;
+  width: 52px;
+  height: 52px;
+}
+
+.load__spinner-track {
+  fill: none;
+  stroke: rgba(243,120,148,0.15);
+  stroke-width: 2.5;
+}
+
+.load__spinner-arc {
+  fill: none;
+  stroke: var(--pink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 112;
+  stroke-dashoffset: 112;
+  transform-origin: 26px 26px;
+  animation: arcSpin 1.5s ease-in-out infinite;
+  will-change: stroke-dashoffset, transform;
+}
+
+@keyframes arcSpin {
+  0%   { stroke-dashoffset: 108; transform: rotate(-90deg); }
+  50%  { stroke-dashoffset: 22;  transform: rotate(90deg);  }
+  100% { stroke-dashoffset: 108; transform: rotate(270deg); }
+}
+
+/* Loading label */
+.load__label {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.825rem;
+  color: var(--navy-50);
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+/* ============================================================
+   STAGE 2 — ENVELOPE SCENE
+   ============================================================ */
+#stage-envelope {
+  z-index: 90;
+  gap: 2.5rem;
+}
+
+/* Envelope wrapper — handles perspective for 3D flap */
+.envelope-wrap {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  perspective: 600px;
+  perspective-origin: 50% 0%;
+  animation: envRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: transform, opacity;
+  cursor: pointer;
+}
+
+@media (min-width: 600px) {
+  .envelope-wrap {
+    width: 420px;
+    height: 280px;
+  }
+}
+
+@keyframes envRise {
+  from { transform: translateY(80px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Tabindex / role="button" wrapper */
+.envelope {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* --- Envelope body (navy rectangle with pink border) --- */
+.env-body {
+  position: absolute;
+  inset: 0;
+  background: var(--navy);
+  border: 1.5px solid var(--pink);
+  border-radius: 4px;
+  box-shadow:
+    0 8px 40px rgba(0,27,67,0.18),
+    0 2px 10px rgba(0,27,67,0.10),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Left inner fold line (white diagonal) */
+.env-fold-left {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    transparent 49.3%,
+    rgba(255,255,255,0.13) 49.3%,
+    rgba(255,255,255,0.13) 50.7%,
+    transparent 50.7%
+  );
+}
+
+/* Right inner fold line */
+.env-fold-right {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom left,
+    transparent 49.3%,
+    rgba(255,255,255,0.13) 49.3%,
+    rgba(255,255,255,0.13) 50.7%,
+    transparent 50.7%
+  );
+}
+
+/* Pink inner glow (appears when flap opens) */
+.env-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 65%,
+    rgba(243,120,148,0.22) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.7s ease 0.2s;
+  z-index: 2;
+}
+
+.env-glow.is-lit { opacity: 1; }
+
+/* --- Letter card (rises from inside) --- */
+.letter-card {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  width: 278px;
+  background: var(--white);
+  border: 1px solid rgba(0,27,67,0.12);
+  border-radius: 4px;
+  box-shadow:
+    0 2px 8px rgba(0,27,67,0.10),
+    0 12px 40px rgba(0,27,67,0.18);
+  padding: 1.5rem 1.375rem 1.25rem;
+  text-align: center;
+  z-index: 4;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  transition:
+    transform 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity   0.45s ease;
+  will-change: transform, opacity;
+}
+
+@media (min-width: 600px) {
+  .letter-card {
+    width: 360px;
+    padding: 1.75rem 1.75rem 1.5rem;
+  }
+}
+
+/* Pink top stripe */
+.letter-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--pink);
+  border-radius: 4px 4px 0 0;
+}
+
+/* Letter risen state */
+.letter-card.is-risen {
+  transform: translateX(-50%) translateY(-145px);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (min-width: 600px) {
+  .letter-card.is-risen {
+    transform: translateX(-50%) translateY(-175px);
+  }
+}
+
+/* Staggered reveal for each line */
+.ltr {
+  opacity: 0;
+  transform: translateY(7px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  will-change: opacity, transform;
+}
+
+.letter-card.is-risen .ltr:nth-child(1)  { transition-delay: 0.10s; }
+.letter-card.is-risen .ltr:nth-child(2)  { transition-delay: 0.22s; }
+.letter-card.is-risen .ltr:nth-child(3)  { transition-delay: 0.36s; }
+.letter-card.is-risen .ltr:nth-child(4)  { transition-delay: 0.46s; }
+.letter-card.is-risen .ltr:nth-child(5)  { transition-delay: 0.56s; }
+.letter-card.is-risen .ltr:nth-child(6)  { transition-delay: 0.66s; }
+.letter-card.is-risen .ltr:nth-child(7)  { transition-delay: 0.76s; }
+.letter-card.is-risen .ltr:nth-child(8)  { transition-delay: 0.88s; }
+.letter-card.is-risen .ltr:nth-child(9)  { transition-delay: 1.02s; }
+
+.letter-card.is-risen .ltr {
   opacity: 1;
   transform: translateY(0);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ============================================================
-   === HERO SECTION ===
-   ============================================================ */
-.hero {
-  position: relative;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 2rem 1.5rem 4.5rem;
-}
-
-/* Photo fills entire hero as background */
-.hero__photo-panel {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-/* White overlay — keeps photo visible while ensuring navy text is readable */
-.hero__photo-panel::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.78);
-  z-index: 1;
-}
-
-.hero__photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 25%;
-  display: block;
-}
-
-/* Content panel fills the whole hero so corner florals reach the edges */
-.hero__content-panel {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem 1.5rem 4.5rem;
-  pointer-events: none;
-}
-
-.hero__content-panel > * {
-  pointer-events: auto;
-}
-
-.hero__floral-corner {
-  position: absolute;
-  pointer-events: none;
-}
-
-.hero__floral-corner--tl { top: 0; left: 0; }
-.hero__floral-corner--br { bottom: 0; right: 0; transform: rotate(180deg); }
-
-@keyframes floralRotate {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-.hero__content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  max-width: 480px;
-  width: 100%;
-}
-
-/* Staggered hero fade-ins */
-.hero__cross {
-  opacity: 0;
-  transform: translateY(-10px);
-  animation: heroPop 0.8s ease forwards;
-  animation-delay: 0.2s;
-  will-change: transform;
-  margin-bottom: 1.25rem;
-  display: flex;
-  justify-content: center;
-}
-
-.hero__names {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(3rem, 10vw, 6rem);
-  color: var(--color-navy);
-  line-height: 1.1;
-  opacity: 0;
-  transform: translateY(16px);
-  animation: heroPop 0.9s ease forwards;
-  animation-delay: 0.5s;
-  will-change: transform;
-}
-
-.hero__tagline {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-  color: var(--color-navy);
-  margin-top: 1rem;
-  opacity: 0;
-  transform: translateY(16px);
-  animation: heroPop 0.9s ease forwards;
-  animation-delay: 0.8s;
-  will-change: transform;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero__verse {
+/* Letter typography */
+.ltr-sub {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
-  color: var(--color-navy-70);
-  margin-top: 1.5rem;
-  opacity: 0;
-  transform: translateY(16px);
-  animation: heroPop 0.9s ease forwards;
-  animation-delay: 1.1s;
-  will-change: transform;
-  max-width: 520px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.7;
+  font-size: clamp(0.85rem, 2.3vw, 1rem);
+  color: var(--navy-60);
+  line-height: 1.4;
 }
 
-.hero__date {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  color: var(--color-navy);
-  margin-top: 1.75rem;
-  letter-spacing: 0.05em;
-  opacity: 0;
-  transform: translateY(16px);
-  animation: heroPop 0.9s ease forwards;
-  animation-delay: 1.4s;
-  will-change: transform;
-}
-
-.hero__divider {
-  width: 60px;
-  height: 2px;
-  background: var(--color-pink);
-  margin: 1.25rem auto;
-  opacity: 0;
-  animation: heroPop 0.9s ease forwards;
-  animation-delay: 1.3s;
-}
-
-.hero__scroll {
-  position: absolute;
-  bottom: 1rem;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  width: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-  opacity: 0;
-  transform: translateY(8px);
-  animation: heroPop 0.9s ease forwards;
-  animation-delay: 1.7s;
-  will-change: transform;
-  text-decoration: none;
-  border: none;
-  background: none;
-  padding: 0.5rem;
-}
-
-.hero__scroll-arrow {
-  animation: bounceArrow 1.5s ease-in-out infinite;
-  will-change: transform;
-}
-
-@keyframes bounceArrow {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(8px); }
-}
-
-@keyframes heroPop {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ============================================================
-   === SECTION SHARED STYLES ===
-   ============================================================ */
-.section {
-  padding: 5rem 1.5rem;
-}
-
-.section__header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.section__eyebrow {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-pink);
-  margin-bottom: 0.75rem;
-}
-
-.section__title {
+.ltr-headline {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: clamp(2rem, 5vw, 2.8rem);
-  color: var(--color-navy);
-  line-height: 1.2;
+  font-size: clamp(1.8rem, 5.5vw, 2.5rem);
+  color: var(--navy);
+  line-height: 1.05;
 }
 
-.section-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin: 0 auto 0;
-  opacity: 0.5;
-}
-
-.section-divider__line {
+.ltr-rule {
   width: 60px;
   height: 1px;
-  background: var(--color-pink);
+  background: var(--pink);
+  border: none;
+  margin: 0.1rem 0;
 }
 
-/* ============================================================
-   === COUNTDOWN SECTION ===
-   ============================================================ */
-.countdown {
-  background-color: var(--color-white);
-  text-align: center;
-  padding: 4rem 1.5rem;
-  border-top: 1px solid var(--color-navy-10);
-  border-bottom: 1px solid var(--color-navy-10);
-}
-
-.countdown__label {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-pink);
-  margin-bottom: 0.75rem;
-}
-
-.countdown__title {
-  font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
-  color: var(--color-navy);
-  margin-bottom: 2.5rem;
-}
-
-.countdown__timer {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  flex-wrap: nowrap;
-}
-
-.countdown__box {
-  background-color: var(--color-navy);
-  border: 2px solid var(--color-pink);
-  border-radius: 6px;
-  padding: 0.65rem 0.5rem;
-  min-width: 0;
-  flex: 1;
-  max-width: 80px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-  overflow: hidden;
-}
-
-.countdown__num {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(1.5rem, 8vw, 3rem);
-  color: var(--color-white);
-  line-height: 1;
-  display: block;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  will-change: transform;
-}
-
-.countdown__num.flip {
-  animation: flipNum 0.3s ease;
-}
-
-@keyframes flipNum {
-  0%   { transform: rotateX(0deg); opacity: 1; }
-  50%  { transform: rotateX(-90deg); opacity: 0; }
-  100% { transform: rotateX(0deg); opacity: 1; }
-}
-
-.countdown__unit {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-pink);
-}
-
-.countdown__passed {
+.ltr-names {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.5rem;
-  color: var(--color-navy);
-  display: none;
+  font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+  color: var(--navy);
 }
 
-/* ============================================================
-   === EVENT DETAILS SECTION ===
-   ============================================================ */
-.details {
-  background-color: var(--color-white);
-}
-
-.details__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  max-width: 860px;
-  margin: 0 auto;
-}
-
-@media (min-width: 600px) {
-  .details__grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.details__card {
-  background: var(--color-white);
-  border: 2px solid var(--color-navy);
-  border-radius: 12px;
-  padding: 2rem 1.75rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.details__card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--color-pink);
-}
-
-.details__card-eyebrow {
+.ltr-request {
   font-family: var(--font-sans);
   font-weight: 300;
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-pink);
-  margin-bottom: 0.5rem;
+  font-size: clamp(0.72rem, 2vw, 0.82rem);
+  color: var(--navy-70);
+  letter-spacing: 0.03em;
 }
 
-.details__card-title {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: 1.7rem;
-  color: var(--color-navy);
-  margin-bottom: 0.35rem;
-}
-
-.details__denomination {
+.ltr-date {
   font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.8rem;
-  color: var(--color-navy-70);
-  margin-bottom: 1.25rem;
-  font-style: italic;
-}
-
-.details__info-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin-bottom: 0.9rem;
-}
-
-.details__icon {
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.details__info-text {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.95rem;
-  color: var(--color-navy);
-  line-height: 1.5;
-}
-
-.details__info-text strong {
   font-weight: 400;
-  display: block;
+  font-size: clamp(0.82rem, 2.2vw, 0.95rem);
+  color: var(--navy);
+  letter-spacing: 0.04em;
 }
 
-.details__actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
+.ltr-verse {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.68rem, 1.8vw, 0.78rem);
+  color: var(--navy-50);
+  line-height: 1.55;
+  margin-top: 0.15rem;
 }
 
-.btn {
+/* Open Invitation button */
+.ltr-btn-wrap {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.open-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
+  gap: 0.45rem;
+  background: var(--pink);
+  color: var(--white);
+  border: none;
+  border-radius: 999px;
+  padding: 0.875rem 2.25rem;
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: 0.9rem;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  border: 2px solid transparent;
-  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
+  letter-spacing: 0.05em;
   min-height: 48px;
+  box-shadow: 0 4px 20px rgba(243,120,148,0.38);
+  transition:
+    transform     var(--transition-base),
+    background    var(--transition-base),
+    box-shadow    var(--transition-base);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.btn:active {
-  transform: scale(0.97);
+.open-btn:hover {
+  transform: scale(1.04);
+  background: #e8607e;
+  box-shadow: 0 6px 28px rgba(243,120,148,0.52);
 }
 
-.btn--primary {
-  background-color: var(--color-navy);
-  color: var(--color-white);
-  border-color: var(--color-navy);
-}
+.open-btn:active { transform: scale(0.97); }
 
-.btn--primary:hover {
-  background-color: transparent;
-  color: var(--color-navy);
-}
-
-.btn--outline {
-  background-color: transparent;
-  color: var(--color-pink);
-  border-color: var(--color-pink);
-}
-
-.btn--outline:hover {
-  background-color: var(--color-pink);
-  color: var(--color-white);
-}
-
-.btn--white {
-  background-color: var(--color-white);
-  color: var(--color-navy);
-  border-color: var(--color-white);
-}
-
-.btn--white:hover {
-  background-color: transparent;
-  color: var(--color-white);
-}
-
-/* ============================================================
-   === RSVP SECTION ===
-   ============================================================ */
-.rsvp {
-  background-color: var(--color-navy);
-  color: var(--color-white);
-}
-
-.rsvp .section__eyebrow {
-  color: var(--color-pink);
-}
-
-.rsvp .section__title {
-  color: var(--color-white);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.rsvp__form-wrap {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.rsvp__form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.form__group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.form__label {
-  font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.8);
-}
-
-.form__input,
-.form__textarea,
-.form__select {
-  background-color: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 6px;
-  padding: 0.85rem 1rem;
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  color: var(--color-white);
-  transition: border-color var(--transition-base), background-color var(--transition-base);
-  width: 100%;
-  min-height: 48px;
-  appearance: none;
-}
-
-.form__input::placeholder,
-.form__textarea::placeholder {
-  color: rgba(255,255,255,0.35);
-}
-
-.form__input:focus,
-.form__textarea:focus,
-.form__select:focus {
-  outline: none;
-  border-color: var(--color-pink);
-  background-color: rgba(255,255,255,0.10);
-}
-
-.form__input.error,
-.form__textarea.error {
-  border-color: var(--color-pink);
-  animation: shake 0.35s ease;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25%       { transform: translateX(-5px); }
-  75%       { transform: translateX(5px); }
-}
-
-.form__error {
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  color: var(--color-pink);
-  min-height: 1em;
-  display: none;
-}
-
-.form__error.visible {
-  display: block;
-}
-
-.form__textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-/* Custom radio buttons */
-.form__radio-group {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.form__radio-label {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  color: rgba(255,255,255,0.9);
-  min-height: 48px;
-  padding: 0.5rem 0;
-}
-
-.form__radio-input {
+/* --- Envelope flap (3D-rotating triangle) --- */
+.env-flap-wrap {
   position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
+  top: -1px; left: -1px; right: -1px;
+  height: 52%;
+  z-index: 10;
+  transform-style: preserve-3d;
 }
 
-.form__radio-custom {
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(255,255,255,0.4);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: border-color var(--transition-base);
-}
-
-.form__radio-input:checked + .form__radio-custom {
-  border-color: var(--color-pink);
-}
-
-.form__radio-input:checked + .form__radio-custom::after {
-  content: '';
-  width: 10px;
-  height: 10px;
-  background: var(--color-pink);
-  border-radius: 50%;
-}
-
-.form__radio-input:focus-visible + .form__radio-custom {
-  outline: 2px solid var(--color-pink);
-  outline-offset: 3px;
-}
-
-/* Guest count select */
-.form__select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f37894' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  padding-right: 2.5rem;
-  cursor: pointer;
-}
-
-.form__select option {
-  background-color: var(--color-navy);
-  color: var(--color-white);
-}
-
-.rsvp__submit {
-  margin-top: 0.5rem;
-}
-
-.rsvp__submit .btn {
-  width: 100%;
-  font-size: 1rem;
-  padding: 1rem;
-}
-
-/* Success state */
-.rsvp__success {
-  display: none;
-  text-align: center;
-  padding: 3rem 1rem;
-}
-
-.rsvp__success.visible {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.checkmark-svg {
-  width: 80px;
-  height: 80px;
-}
-
-.checkmark-circle {
-  stroke: var(--color-pink);
-  stroke-width: 2;
-  fill: none;
-  stroke-dasharray: 166;
-  stroke-dashoffset: 166;
-  animation: drawCircle 0.6s ease forwards;
-}
-
-.checkmark-check {
-  stroke: var(--color-pink);
-  stroke-width: 2.5;
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 48;
-  stroke-dashoffset: 48;
-  animation: drawCheck 0.4s ease 0.6s forwards;
-}
-
-@keyframes drawCircle {
-  to { stroke-dashoffset: 0; }
-}
-
-@keyframes drawCheck {
-  to { stroke-dashoffset: 0; }
-}
-
-.rsvp__success-title {
-  font-family: var(--font-serif);
-  font-size: 1.8rem;
-  color: var(--color-white);
-}
-
-.rsvp__success-text {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  color: rgba(255,255,255,0.75);
-  font-size: 1rem;
-}
-
-/* ============================================================
-   === GALLERY SECTION ===
-   ============================================================ */
-.gallery {
-  background-color: var(--color-white);
-  overflow: hidden;
-}
-
-/* Mobile: horizontal scroll strip */
-.gallery__strip {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding: 0 1.5rem 1rem;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-pink) transparent;
-}
-
-.gallery__strip::-webkit-scrollbar {
-  height: 4px;
-}
-.gallery__strip::-webkit-scrollbar-track {
-  background: transparent;
-}
-.gallery__strip::-webkit-scrollbar-thumb {
-  background: var(--color-pink);
-  border-radius: 2px;
-}
-
-.gallery__item {
-  flex-shrink: 0;
-  width: 260px;
-  height: 320px;
-  border-radius: 8px;
-  overflow: hidden;
-  scroll-snap-align: start;
-  position: relative;
-}
-
-/* Desktop: masonry-style grid */
-@media (min-width: 900px) {
-  .gallery__strip {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-    gap: 1rem;
-    overflow: visible;
-    padding: 0;
-    max-width: 1000px;
-    margin: 0 auto;
-    scrollbar-width: none;
-  }
-
-  .gallery__strip::-webkit-scrollbar {
-    display: none;
-  }
-
-  .gallery__item {
-    width: auto;
-    height: 300px;
-    scroll-snap-align: none;
-  }
-
-  .gallery__item:nth-child(1) { grid-row: span 2; height: 500px; }
-  .gallery__item:nth-child(4) { grid-row: span 2; height: 500px; }
-}
-
-.gallery__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-  will-change: transform;
-}
-
-.gallery__overlay {
+.env-flap {
   position: absolute;
   inset: 0;
-  background: rgba(243, 120, 148, 0);
-  transition: background 0.4s ease;
+  background: var(--navy);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  border-top:   1.5px solid var(--pink);
+  border-left:  1.5px solid var(--pink);
+  border-right: 1.5px solid var(--pink);
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 0.75s ease-in-out;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
 }
 
-.gallery__item:hover .gallery__img {
-  transform: scale(1.03);
+/* Subtle pink inner face (warm glow inside the open flap) */
+.env-flap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(243,120,148,0.05) 0%,
+    rgba(243,120,148,0.14) 100%
+  );
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
-.gallery__item:hover .gallery__overlay {
-  background: rgba(243, 120, 148, 0.15);
+.env-flap.is-open {
+  transform: rotateX(180deg);
 }
 
-/* ============================================================
-   === WEDDING PARTY SECTION ===
-   ============================================================ */
-.party {
-  background-color: var(--color-white);
-  border-top: 1px solid var(--color-navy-10);
+/* Wax seal (centered on triangle ~33% down) */
+.env-seal {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  background: var(--pink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 2px 10px rgba(243,120,148,0.55),
+    0 0 0 2px rgba(255,255,255,0.15);
+  transition: opacity 0.3s ease;
+  z-index: 11;
+  cursor: pointer;
 }
 
-.party__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  max-width: 860px;
-  margin: 0 auto;
-}
+.env-seal.is-fading { opacity: 0; }
 
-@media (min-width: 900px) {
-  .party__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.party__card {
+/* --- Hint text + bounce icon --- */
+.env-hint {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  text-align: center;
-  padding: 1.5rem 1rem;
+  transition: opacity 0.4s ease;
 }
 
-.party__avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid var(--color-pink);
-  flex-shrink: 0;
-}
+.env-hint.is-gone { opacity: 0; pointer-events: none; }
 
-.party__avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.party__name {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: var(--color-navy);
-}
-
-.party__role {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-pink);
-}
-
-/* ============================================================
-   === ENTOURAGE LAYOUT ===
-   ============================================================ */
-.party__section-group {
-  margin-bottom: 3rem;
-  text-align: center;
-}
-
-.party__group-heading {
+.hint-text {
   font-family: var(--font-serif);
   font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.3rem, 3vw, 1.6rem);
-  color: var(--color-pink);
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.6rem;
-  border-bottom: 1px solid var(--color-pink-20);
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.party__member-solo {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  color: var(--color-navy);
-}
-
-.party__member-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem 1.5rem;
-  max-width: 640px;
-  margin: 0 auto;
-}
-
-.party__member-grid--3col {
-  max-width: 680px;
-}
-
-.party__member-grid--4col {
-  max-width: 800px;
-}
-
-@media (min-width: 600px) {
-  .party__member-grid--3col {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .party__member-grid--4col {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.party__member-name {
-  font-family: var(--font-serif);
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-  color: var(--color-navy);
-  padding: 0.35rem 0.25rem;
-  line-height: 1.4;
-}
-
-.party__special-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  max-width: 740px;
-  margin: 0 auto;
-}
-
-@media (min-width: 600px) {
-  .party__special-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .party__special-grid--3col {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.party__special-card {
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: var(--navy);
   text-align: center;
-  padding: 1.25rem 1rem;
-  border: 1px solid var(--color-navy-10);
-  border-radius: 8px;
-  background: var(--color-white);
+  animation: hintPulse 2s ease-in-out infinite;
 }
 
-.party__special-role {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-pink);
-  margin-bottom: 0.5rem;
+@keyframes hintPulse {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.4; }
 }
 
-.party__special-name {
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
-  color: var(--color-navy);
-  line-height: 1.5;
+.hint-icon {
+  animation: hintBounce 1.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes hintBounce {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(7px); }
 }
 
 /* ============================================================
-   === FOOTER ===
+   OUTRO OVERLAY (fades to white before navigating)
    ============================================================ */
-.footer {
-  background-color: var(--color-navy);
-  color: var(--color-white);
-  padding: 3.5rem 1.5rem;
-  text-align: center;
-}
-
-.footer__names {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
-  color: var(--color-white);
-  margin-bottom: 0.25rem;
-}
-
-.footer__date {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 0.75rem;
-}
-
-.footer__faith {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--color-pink);
-  margin-bottom: 1.75rem;
-}
-
-.footer__verse {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 0.95rem;
-  color: rgba(255,255,255,0.55);
-  max-width: 440px;
-  margin: 0 auto 2rem;
-  line-height: 1.7;
-}
-
-.footer__social {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.footer__social-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.7);
-  text-decoration: none;
-  transition: border-color var(--transition-base), color var(--transition-base);
-}
-
-.footer__social-link:hover {
-  border-color: var(--color-pink);
-  color: var(--color-pink);
-}
-
-.footer__copy {
-  margin-top: 2rem;
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.3);
-}
-
-/* ============================================================
-   === DRESS CODE SECTION ===
-   ============================================================ */
-.dresscode {
-  background-color: var(--color-white);
-}
-
-.dresscode__palette-wrap {
-  display: grid;
-  grid-template-columns: 1fr 46px 46px 1fr;
-  gap: 1rem 0.6rem;
-  max-width: 560px;
-  margin: 0 auto;
-  align-items: center;
-}
-
-.dresscode__col-header {
-  font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-navy);
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--color-navy-10);
-}
-
-.dresscode__col-header--left  { text-align: right; }
-.dresscode__col-header--right { text-align: left; }
-.dresscode__col-header--swatch { border-bottom: 1px solid var(--color-navy-10); }
-
-.dresscode__color {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  display: block;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  justify-self: center;
-}
-
-.dresscode__label {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: clamp(0.64rem, 1.8vw, 0.78rem);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-navy);
-  line-height: 1.4;
-}
-
-.dresscode__label--left  { text-align: right; }
-.dresscode__label--right { text-align: left; }
-
-.dresscode__attire-label {
-  text-align: center;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--color-navy-10);
-  font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 0.78rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-navy);
-}
-
-/* ============================================================
-   === GIFT SECTION ===
-   ============================================================ */
-.gift {
-  background-color: var(--color-navy);
-  color: var(--color-white);
-}
-
-.gift .section__title { color: var(--color-white); }
-.gift .section__eyebrow { color: var(--color-pink); }
-
-.gift__note {
-  text-align: center;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.05rem;
-  color: rgba(255,255,255,0.65);
-  max-width: 480px;
-  margin: -1.5rem auto 2.5rem;
-  line-height: 1.7;
-}
-
-.gift__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-@media (min-width: 600px) {
-  .gift__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.gift__card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 12px;
-  padding: 1.75rem 1.5rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.gift__card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--color-pink);
-}
-
-.gift__card-icon {
-  margin: 0 auto 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-}
-
-.gift__bank-name {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: 1.3rem;
-  color: var(--color-white);
-  margin-bottom: 1.25rem;
-}
-
-.gift__detail {
-  margin-bottom: 0.85rem;
-}
-
-.gift__detail-label {
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-pink);
-  margin-bottom: 0.2rem;
-}
-
-.gift__detail-value {
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
-  color: var(--color-white);
-  letter-spacing: 0.04em;
-}
-
-.gift__copy-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-top: 0.35rem;
-  background: none;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 4px;
-  padding: 0.35rem 0.75rem;
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
-  cursor: pointer;
-  transition: border-color var(--transition-base), color var(--transition-base);
-  min-height: 32px;
-}
-
-.gift__copy-btn:hover {
-  border-color: var(--color-pink);
-  color: var(--color-pink);
-}
-
-.gift__copy-btn.copied {
-  border-color: var(--color-pink);
-  color: var(--color-pink);
-}
-
-.gift__qr-wrap {
-  background: var(--color-white);
-  border-radius: 8px;
-  padding: 0.75rem;
-  display: inline-block;
-  margin: 0.75rem 0;
-}
-
-/* ============================================================
-   === INTRO / ENVELOPE OPENER ===
-   ============================================================ */
-.intro {
+#outro-overlay {
   position: fixed;
   inset: 0;
+  background: var(--white);
+  opacity: 0;
+  pointer-events: none;
   z-index: 9999;
-  background: var(--color-white);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2.25rem;
-  overflow: hidden;
-  will-change: transform;
-  transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.7s ease;
+  transition: opacity 0.8s ease;
 }
 
-.intro.is-leaving {
-  transform: translateY(-100%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Soft background radial tint */
-.intro::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 55%,
-    rgba(243,120,148,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.intro__scene {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 190px;
-  animation: introIn 0.65s cubic-bezier(0.34, 1.4, 0.64, 1) 0.25s both;
-  will-change: transform;
-}
-
-@keyframes introIn {
-  from { opacity: 0; transform: scale(0.88) translateY(20px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-/* --- Envelope wrapper --- */
-.intro__env-wrap {
-  position: relative;
-  width: 280px;
-  height: 185px;
-  animation: envShake 0.55s ease 1.1s;
-  will-change: transform;
-}
-
-@keyframes envShake {
-  0%,100% { transform: rotate(0deg); }
-  20%     { transform: translateX(-5px) rotate(-2deg); }
-  45%     { transform: translateX(5px) rotate(2deg); }
-  65%     { transform: translateX(-3px) rotate(-1deg); }
-  85%     { transform: translateX(3px) rotate(1deg); }
-}
-
-/* --- Envelope body --- */
-.intro__env-body {
-  position: absolute;
-  inset: 0;
-  background: var(--color-white);
-  border: 2px solid var(--color-navy);
-  border-radius: 4px;
-  z-index: 1;
-  overflow: hidden;
-}
-
-/* Diagonal fold lines inside envelope */
-.intro__env-body::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(135deg, transparent 49.5%, rgba(0,27,67,0.09) 49.5%, rgba(0,27,67,0.09) 50.5%, transparent 50.5%),
-    linear-gradient(225deg, transparent 49.5%, rgba(0,27,67,0.09) 49.5%, rgba(0,27,67,0.09) 50.5%, transparent 50.5%);
-}
-
-/* Pink wax seal */
-.intro__env-seal {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
-
-/* --- Envelope flap (collapses upward to open) --- */
-.intro__env-flap {
-  position: absolute;
-  top: -1px; left: -1px;
-  width: 282px;
-  height: 97px;
-  background: var(--color-navy);
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  transform-origin: top center;
-  z-index: 5;
-  will-change: transform, opacity;
-  animation: flapOpen 0.6s cubic-bezier(0.55, 0, 1, 0.45) 1.6s forwards;
-}
-
-/* Subtle pink tint on inner flap face */
-.intro__env-flap::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(243, 120, 148, 0.16);
-  clip-path: polygon(1.5% 0, 98.5% 0, 50% 95%);
-}
-
-@keyframes flapOpen {
-  0%   { transform: scaleY(1); opacity: 1; }
-  100% { transform: scaleY(0); opacity: 0; }
-}
-
-/* --- Letter / invitation card --- */
-.intro__letter {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(12px);
-  width: 236px;
-  background: var(--color-white);
-  border: 1px solid rgba(0,27,67,0.1);
-  box-shadow: 0 12px 40px rgba(0,27,67,0.16);
-  border-radius: 3px;
-  padding: 1.5rem 1.25rem 1.25rem;
-  text-align: center;
-  z-index: 3;
-  opacity: 0;
-  will-change: transform, opacity;
-  animation: letterRise 0.75s cubic-bezier(0.22, 1, 0.36, 1) 2.1s forwards;
-}
-
-.intro__letter::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--color-pink);
-  border-radius: 3px 3px 0 0;
-}
-
-@keyframes letterRise {
-  from { opacity: 0; transform: translateX(-50%) translateY(18px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(-198px); }
-}
-
-/* Letter content — staggered reveal */
-.intro__letter-cross {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 0.65rem;
-  opacity: 0;
-  animation: fadeUp 0.45s ease 2.75s forwards;
-}
-
-.intro__letter-invited {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.62rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--color-pink);
-  margin-bottom: 0.6rem;
-  opacity: 0;
-  animation: fadeUp 0.45s ease 2.9s forwards;
-}
-
-.intro__letter-names {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(1.5rem, 6vw, 1.9rem);
-  color: var(--color-navy);
-  line-height: 1.15;
-  margin-bottom: 0.4rem;
-  opacity: 0;
-  animation: fadeUp 0.45s ease 3.05s forwards;
-}
-
-.intro__letter-amp {
-  color: var(--color-pink);
-  font-style: italic;
-  font-weight: 400;
-}
-
-.intro__letter-rule {
-  width: 40px;
-  height: 1px;
-  background: var(--color-pink);
-  margin: 0.5rem auto;
-  opacity: 0;
-  animation: fadeUp 0.45s ease 3.15s forwards;
-}
-
-.intro__letter-date {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 0.8rem;
-  color: rgba(0,27,67,0.5);
-  line-height: 1.5;
-  opacity: 0;
-  animation: fadeUp 0.45s ease 3.25s forwards;
-}
-
-/* --- Open button --- */
-.intro__cta-wrap {
-  opacity: 0;
-  animation: fadeUp 0.6s ease 3.8s forwards;
-}
-
-.intro__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--color-navy);
-  color: var(--color-white);
-  border: 2px solid var(--color-navy);
-  border-radius: 6px;
-  font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
-  padding: 0.85rem 2rem;
-  cursor: pointer;
-  min-height: 48px;
-  transition: background var(--transition-base),
-              color var(--transition-base),
-              transform var(--transition-base);
-  animation: ctaPulse 2s ease 5s infinite;
-}
-
-.intro__cta:hover { background: transparent; color: var(--color-navy); }
-.intro__cta:active { transform: scale(0.97); }
-
-@keyframes ctaPulse {
-  0%,100% { box-shadow: 0 0 0 0 rgba(0,27,67,0.18); }
-  50%      { box-shadow: 0 0 0 10px rgba(0,27,67,0); }
-}
-
-/* --- Skip button --- */
-.intro__skip {
-  position: absolute;
-  bottom: 1.25rem;
-  right: 1.5rem;
-  background: none;
-  border: none;
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(0,27,67,0.28);
-  cursor: pointer;
-  padding: 0.5rem 0.75rem;
-  min-height: 48px;
-  transition: color var(--transition-base);
-  opacity: 0;
-  animation: fadeUp 0.4s ease 2.2s forwards;
-}
-
-.intro__skip:hover { color: var(--color-navy); }
-
-/* --- Reduced motion --- */
-@media (prefers-reduced-motion: reduce) {
-  .intro__env-wrap,
-  .intro__env-flap,
-  .intro__letter,
-  .intro__letter-cross,
-  .intro__letter-invited,
-  .intro__letter-names,
-  .intro__letter-rule,
-  .intro__letter-date,
-  .intro__cta-wrap,
-  .intro__skip,
-  .intro__scene,
-  .intro__cta { animation: none !important; opacity: 1 !important; }
-  .intro__letter { transform: translateX(-50%) translateY(-198px) !important; }
-  .intro__env-flap { display: none !important; }
-  .intro.is-leaving { transition: none !important; display: none !important; }
+#outro-overlay.is-fading {
+  opacity: 1;
+  pointer-events: all;
 }
 
 /* ============================================================
-   === MISC UTILITIES ===
+   MOBILE-FIRST RESPONSIVE TWEAKS
    ============================================================ */
-.container {
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
+@media (min-width: 900px) {
+  .envelope-wrap {
+    width: 460px;
+    height: 300px;
+  }
+  .letter-card {
+    width: 390px;
+  }
+  .letter-card.is-risen {
+    transform: translateX(-50%) translateY(-195px);
+  }
 }
 
-.text-center { text-align: center; }
-
-@media (min-width: 1200px) {
-  .section {
-    padding: 6rem 2rem;
-  }
+/* ============================================================
+   ACCESSIBILITY — REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .load__spinner-arc      { animation: none; stroke-dashoffset: 0; }
+  .hint-text              { animation: none; }
+  .hint-icon              { animation: none; }
+  .envelope-wrap          { animation: none; }
+  .env-flap               { transition: none; }
+  .ltr                    { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .letter-card            { transition: none; }
+  .letter-card.is-risen   { transform: translateX(-50%) translateY(-145px); opacity: 1; }
+  .env-seal               { transition: none; }
+  .env-glow               { transition: none; }
+  .stage                  { transition: none; }
+  #outro-overlay          { transition: none; }
+  .open-btn               { transition: none; }
 }
 </style>
 </head>
-
 <body>
 
+<!-- Screen reader live region -->
+<div id="aria-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
 <!-- ============================================================
-     === INTRO ENVELOPE OPENER ===
+     OUTRO OVERLAY — white wash before navigating
      ============================================================ -->
-<div id="intro" class="intro" role="dialog" aria-modal="true" aria-label="Wedding invitation opener">
+<div id="outro-overlay"></div>
 
-  <div class="intro__scene">
-    <div class="intro__env-wrap">
+<!-- ============================================================
+     STAGE 1 — LOADING SCREEN
+     ============================================================ -->
+<div id="stage-loading" class="stage" aria-label="Preparing your invitation" role="status">
 
-      <!-- Letter / invitation card (rises from inside the envelope) -->
-      <div class="intro__letter">
-        <div class="intro__letter-cross" aria-hidden="true">
-          <svg width="18" height="22" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
-            <rect x="7" y="0" width="4" height="22" rx="1" fill="#f37894" opacity="0.8"/>
-            <rect x="0" y="6" width="18" height="4" rx="1" fill="#f37894" opacity="0.8"/>
+  <!-- Cross + intertwined rings -->
+  <div class="load__icon" aria-hidden="true">
+    <svg width="88" height="88" viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg">
+      <!-- Cross -->
+      <rect x="39.5" y="4"  width="9" height="46" rx="2.5" fill="#f37894" opacity="0.82"/>
+      <rect x="20"   y="18" width="48" height="9" rx="2.5" fill="#f37894" opacity="0.82"/>
+      <!-- Ring 1 (left, navy) -->
+      <circle cx="30" cy="70" r="14" fill="none" stroke="#001b43" stroke-width="3" opacity="0.65"/>
+      <!-- Ring 2 (right, pink) — overlapping -->
+      <circle cx="46" cy="70" r="14" fill="none" stroke="#f37894" stroke-width="3" opacity="0.82"/>
+      <!-- White mask to create intertwine effect (left ring in front on the overlap) -->
+      <path d="M39,63 C37,65.5 37,74.5 39,77" fill="none" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- Couple names -->
+  <p class="load__names">Noel &amp; Irene</p>
+
+  <!-- Date -->
+  <p class="load__date">July 7, 2026</p>
+
+  <!-- SVG Arc Spinner -->
+  <div class="load__spinner" role="progressbar" aria-label="Loading">
+    <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle class="load__spinner-track" cx="26" cy="26" r="21"/>
+      <circle class="load__spinner-arc"   cx="26" cy="26" r="21"/>
+    </svg>
+  </div>
+
+  <p class="load__label">Preparing your invitation&hellip;</p>
+
+</div>
+
+<!-- ============================================================
+     STAGE 2 / 3 / 4 — ENVELOPE + LETTER
+     ============================================================ -->
+<div id="stage-envelope" class="stage is-gone" style="opacity:0" aria-label="Your wedding invitation">
+
+  <!-- ENVELOPE -->
+  <div class="envelope-wrap">
+    <div class="envelope"
+         id="envelope"
+         role="button"
+         tabindex="0"
+         aria-label="Open your wedding invitation"
+         aria-expanded="false">
+
+      <!-- Body (navy rectangle + fold lines + glow) -->
+      <div class="env-body">
+        <div class="env-fold-left"  aria-hidden="true"></div>
+        <div class="env-fold-right" aria-hidden="true"></div>
+        <div class="env-glow" id="env-glow" aria-hidden="true"></div>
+      </div>
+
+      <!-- Letter card (rises from inside) — aria-hidden until risen -->
+      <div class="letter-card" id="letter-card" aria-hidden="true">
+
+        <!-- 1. Cross -->
+        <div class="ltr" aria-hidden="true">
+          <svg width="20" height="26" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8"  y="0"  width="4"  height="26" rx="1.5" fill="#f37894" opacity="0.85"/>
+            <rect x="0"  y="7"  width="20" height="4"  rx="1.5" fill="#f37894" opacity="0.85"/>
           </svg>
         </div>
-        <p class="intro__letter-invited">You Are Invited</p>
-        <h2 class="intro__letter-names">
-          Noel <span class="intro__letter-amp">&amp;</span> Irene
-        </h2>
-        <div class="intro__letter-rule" aria-hidden="true"></div>
-        <p class="intro__letter-date">July 7, 2026<br>Lanao del Norte</p>
-      </div>
 
-      <!-- Envelope body -->
-      <div class="intro__env-body">
-        <div class="intro__env-seal" aria-hidden="true">
-          <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="25" cy="25" r="23" fill="rgba(243,120,148,0.10)" stroke="#f37894" stroke-width="1.5"/>
-            <circle cx="25" cy="25" r="15" fill="none" stroke="#f37894" stroke-width="0.8" opacity="0.45"/>
-            <rect x="22" y="11" width="3.5" height="28" rx="1.5" fill="#f37894" opacity="0.65"/>
-            <rect x="11" y="22" width="28" height="3.5" rx="1.5" fill="#f37894" opacity="0.65"/>
-          </svg>
-        </div>
-      </div>
+        <!-- 2. Sub heading -->
+        <p class="ltr ltr-sub">Together with their families</p>
 
-      <!-- Flap (collapses upward to open the envelope) -->
-      <div class="intro__env-flap" aria-hidden="true"></div>
+        <!-- 3. Main headline -->
+        <h2 class="ltr ltr-headline">You Are Invited</h2>
 
-    </div>
-  </div>
+        <!-- 4. Rule -->
+        <hr class="ltr ltr-rule" aria-hidden="true">
 
-  <!-- CTA -->
-  <div class="intro__cta-wrap">
-    <button class="intro__cta" id="intro-cta" aria-label="Open the wedding invitation">
-      Open Invitation
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-        <polyline points="9 18 15 12 9 6"/>
-      </svg>
-    </button>
-  </div>
+        <!-- 5. Names -->
+        <p class="ltr ltr-names">Noel &amp; Irene</p>
 
-  <button class="intro__skip" id="intro-skip" aria-label="Skip intro">Skip</button>
-</div>
+        <!-- 6. Request line -->
+        <p class="ltr ltr-request">request the honour of your presence</p>
 
-<!-- ============================================================
-     === HERO SECTION ===
-     ============================================================ -->
-<main role="main">
-<section class="hero" aria-label="Wedding invitation hero">
+        <!-- 7. Date -->
+        <p class="ltr ltr-date">Tuesday, the 7th of July, 2026</p>
 
-  <!-- Photo Panel -->
-  <div class="hero__photo-panel">
-    <img class="hero__photo" src="photos/hero.JPG" alt="Noel and Irene engagement photo" loading="eager" fetchpriority="high">
-  </div>
+        <!-- 8. Bible verse -->
+        <p class="ltr ltr-verse">
+          &ldquo;What God has joined together,<br>
+          let no one separate.&rdquo;
+        </p>
 
-  <!-- Content Panel -->
-  <div class="hero__content-panel">
-
-    <!-- Corner floral accents -->
-    <div class="hero__floral-corner hero__floral-corner--tl" aria-hidden="true">
-      <svg width="130" height="130" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
-        <g fill="none" stroke="#f37894" stroke-opacity="0.22" stroke-width="1.3" stroke-linecap="round">
-          <path d="M12,12 Q24,0 36,12 Q24,24 12,12Z"/>
-          <path d="M12,12 Q0,24 12,36 Q24,24 12,12Z"/>
-          <path d="M12,12 Q30,30 48,12 Q30,-6 12,12Z"/>
-          <path d="M12,12 Q-6,30 12,48 Q30,30 12,12Z"/>
-          <path d="M12,12 L12,0 M12,12 L0,12"/>
-          <path d="M12,12 Q50,42 80,26"/>
-          <path d="M12,12 Q42,50 26,80"/>
-          <path d="M62,26 Q80,6 86,18 Q70,26 62,26Z"/>
-          <path d="M26,62 Q6,80 18,86 Q26,70 26,62Z"/>
-          <circle cx="12" cy="12" r="3.5"/>
-          <path d="M36,12 Q50,6 58,14 Q46,18 36,12Z"/>
-          <path d="M12,36 Q6,50 14,58 Q18,46 12,36Z"/>
-        </g>
-      </svg>
-    </div>
-    <div class="hero__floral-corner hero__floral-corner--br" aria-hidden="true">
-      <svg width="130" height="130" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
-        <g fill="none" stroke="#f37894" stroke-opacity="0.22" stroke-width="1.3" stroke-linecap="round">
-          <path d="M12,12 Q24,0 36,12 Q24,24 12,12Z"/>
-          <path d="M12,12 Q0,24 12,36 Q24,24 12,12Z"/>
-          <path d="M12,12 Q30,30 48,12 Q30,-6 12,12Z"/>
-          <path d="M12,12 Q-6,30 12,48 Q30,30 12,12Z"/>
-          <path d="M12,12 L12,0 M12,12 L0,12"/>
-          <path d="M12,12 Q50,42 80,26"/>
-          <path d="M12,12 Q42,50 26,80"/>
-          <path d="M62,26 Q80,6 86,18 Q70,26 62,26Z"/>
-          <path d="M26,62 Q6,80 18,86 Q26,70 26,62Z"/>
-          <circle cx="12" cy="12" r="3.5"/>
-          <path d="M36,12 Q50,6 58,14 Q46,18 36,12Z"/>
-          <path d="M12,36 Q6,50 14,58 Q18,46 12,36Z"/>
-        </g>
-      </svg>
-    </div>
-
-    <div class="hero__content">
-
-    <!-- Cross SVG -->
-    <div class="hero__cross" aria-hidden="true">
-      <svg width="36" height="44" viewBox="0 0 36 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="14" y="0" width="8" height="44" rx="2" fill="#f37894" opacity="0.75"/>
-        <rect x="0" y="12" width="36" height="8" rx="2" fill="#f37894" opacity="0.75"/>
-      </svg>
-    </div>
-
-    <h1 class="hero__names">Noel &amp; Irene</h1>
-
-    <p class="hero__tagline">
-      Together with their families and in the presence of God,<br>
-      joyfully invite you to celebrate their wedding
-    </p>
-
-    <blockquote class="hero__verse">
-      "And now these three remain: faith, hope and love.<br>
-      But the greatest of these is love."<br>
-      — 1 Corinthians 13:13
-    </blockquote>
-
-    <div class="hero__divider" aria-hidden="true"></div>
-
-    <p class="hero__date">Tuesday, the Seventh of July, Two Thousand and Twenty-Six</p>
-
-    </div><!-- end .hero__content -->
-
-    <!-- Scroll indicator -->
-    <a class="hero__scroll" href="#countdown" aria-label="Scroll to countdown">
-      <span class="hero__scroll-arrow" aria-hidden="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 5v14M5 12l7 7 7-7" stroke="#f37894" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
-    </a>
-
-  </div><!-- end .hero__content-panel -->
-
-</section>
-
-<!-- ============================================================
-     === SECTION DIVIDER ===
-     ============================================================ -->
-<div class="section-divider" aria-hidden="true">
-  <div class="section-divider__line"></div>
-  <svg width="18" height="22" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
-    <rect x="7" y="0" width="4" height="22" rx="1" fill="#f37894" opacity="0.5"/>
-    <rect x="0" y="6" width="18" height="4" rx="1" fill="#f37894" opacity="0.5"/>
-  </svg>
-  <div class="section-divider__line"></div>
-</div>
-
-<!-- ============================================================
-     === COUNTDOWN SECTION ===
-     ============================================================ -->
-<section class="countdown reveal" id="countdown" aria-label="Wedding countdown timer">
-  <p class="countdown__label">Counting Down To</p>
-  <h2 class="countdown__title">July 7, 2026</h2>
-
-  <div class="countdown__timer" role="timer" aria-live="polite" aria-label="Time until the wedding">
-    <div class="countdown__box">
-      <span class="countdown__num" id="cd-days">00</span>
-      <span class="countdown__unit">Days</span>
-    </div>
-    <div class="countdown__box">
-      <span class="countdown__num" id="cd-hours">00</span>
-      <span class="countdown__unit">Hours</span>
-    </div>
-    <div class="countdown__box">
-      <span class="countdown__num" id="cd-minutes">00</span>
-      <span class="countdown__unit">Minutes</span>
-    </div>
-    <div class="countdown__box">
-      <span class="countdown__num" id="cd-seconds">00</span>
-      <span class="countdown__unit">Seconds</span>
-    </div>
-  </div>
-
-  <p class="countdown__passed" id="cd-passed" aria-live="polite">
-    ✝ The day is here! Praise God! ✝
-  </p>
-</section>
-
-<!-- ============================================================
-     === SECTION DIVIDER ===
-     ============================================================ -->
-<div class="section-divider" aria-hidden="true">
-  <div class="section-divider__line"></div>
-  <svg width="20" height="16" viewBox="0 0 20 16" xmlns="http://www.w3.org/2000/svg">
-    <path d="M10 0 C10 0 0 4 0 9 C0 12.5 4.5 16 10 16 C15.5 16 20 12.5 20 9 C20 4 10 0 10 0Z" fill="#f37894" opacity="0.4"/>
-    <path d="M10 3 C10 3 3 6 3 9.5 C3 11.8 6 14 10 14 C14 14 17 11.8 17 9.5 C17 6 10 3 10 3Z" fill="#f37894" opacity="0.2"/>
-  </svg>
-  <div class="section-divider__line"></div>
-</div>
-
-<!-- ============================================================
-     === EVENT DETAILS SECTION ===
-     ============================================================ -->
-<section class="section details reveal" id="details" aria-label="Event details">
-  <div class="container">
-    <header class="section__header">
-      <p class="section__eyebrow">Event Details</p>
-      <h2 class="section__title">The Celebration</h2>
-    </header>
-
-    <div class="details__grid">
-
-      <!-- Ceremony Card -->
-      <article class="details__card reveal" aria-label="Ceremony details">
-        <p class="details__card-eyebrow">Ceremony</p>
-        <h3 class="details__card-title">Bethel Fundamental Baptist Church</h3>
-
-        <div class="details__info-row">
-          <span class="details__icon" aria-hidden="true">
-            <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 0C5.13 0 2 3.13 2 7c0 5.25 7 15 7 15s7-9.75 7-15c0-3.87-3.13-7-7-7z" stroke="#f37894" stroke-width="1.5" fill="none"/>
-              <circle cx="9" cy="7" r="2.5" stroke="#f37894" stroke-width="1.5" fill="none"/>
+        <!-- 9. CTA button -->
+        <div class="ltr ltr-btn-wrap">
+          <button class="open-btn" id="open-btn" aria-label="Open the wedding invitation website">
+            Open Invitation
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                 aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"/>
             </svg>
-          </span>
-          <div class="details__info-text">
-            <strong>Purok Guiho, Maranding Lala</strong>
-            Lanao del Norte
-          </div>
-        </div>
-
-        <div class="details__info-row">
-          <span class="details__icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="10" cy="10" r="8.5" stroke="#f37894" stroke-width="1.5"/>
-              <path d="M10 5v5.5l3.5 2" stroke="#f37894" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <div class="details__info-text">
-            <strong>1:00 PM</strong>
-            Doors open at 12:30 PM
-          </div>
-        </div>
-
-        <div class="details__info-row">
-          <span class="details__icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1.5" y="3.5" width="17" height="15" rx="2" stroke="#f37894" stroke-width="1.5"/>
-              <path d="M1.5 8h17" stroke="#f37894" stroke-width="1.5"/>
-              <path d="M6 1.5v4M14 1.5v4" stroke="#f37894" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <div class="details__info-text">
-            <strong>Tuesday, July 7, 2026</strong>
-          </div>
-        </div>
-
-        <div class="details__actions">
-          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--primary" aria-label="Open ceremony location in Google Maps">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 0C4.24 0 2 2.24 2 5c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="currentColor"/></svg>
-            View on Map
-          </a>
-          <button class="btn btn--outline" onclick="generateICS('ceremony')" aria-label="Add ceremony to calendar">
-            Add to Calendar
-          </button>
-        </div>
-      </article>
-
-      <!-- Reception Card -->
-      <article class="details__card reveal" aria-label="Reception details">
-        <p class="details__card-eyebrow">Reception</p>
-        <h3 class="details__card-title">Horizon Resort &amp; Splashway</h3>
-
-        <div class="details__info-row">
-          <span class="details__icon" aria-hidden="true">
-            <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 0C5.13 0 2 3.13 2 7c0 5.25 7 15 7 15s7-9.75 7-15c0-3.87-3.13-7-7-7z" stroke="#f37894" stroke-width="1.5" fill="none"/>
-              <circle cx="9" cy="7" r="2.5" stroke="#f37894" stroke-width="1.5" fill="none"/>
-            </svg>
-          </span>
-          <div class="details__info-text">
-            <strong>Bag-ong Dawis, Baroy</strong>
-            Lanao del Norte
-          </div>
-        </div>
-
-        <div class="details__info-row">
-          <span class="details__icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="10" cy="10" r="8.5" stroke="#f37894" stroke-width="1.5"/>
-              <path d="M10 5v5.5l3.5 2" stroke="#f37894" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <div class="details__info-text">
-            <strong>Following the Ceremony</strong>
-            Reception begins after 1:00 PM
-          </div>
-        </div>
-
-        <div class="details__info-row">
-          <span class="details__icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1.5" y="3.5" width="17" height="15" rx="2" stroke="#f37894" stroke-width="1.5"/>
-              <path d="M1.5 8h17" stroke="#f37894" stroke-width="1.5"/>
-              <path d="M6 1.5v4M14 1.5v4" stroke="#f37894" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <div class="details__info-text">
-            <strong>Tuesday, July 7, 2026</strong>
-          </div>
-        </div>
-
-        <div class="details__actions">
-          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--primary" aria-label="Open reception location in Google Maps">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 0C4.24 0 2 2.24 2 5c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="currentColor"/></svg>
-            View on Map
-          </a>
-          <button class="btn btn--outline" onclick="generateICS('reception')" aria-label="Add reception to calendar">
-            Add to Calendar
-          </button>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     === SECTION DIVIDER ===
-     ============================================================ -->
-<div class="section-divider" aria-hidden="true">
-  <div class="section-divider__line"></div>
-  <svg width="18" height="22" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
-    <rect x="7" y="0" width="4" height="22" rx="1" fill="#f37894" opacity="0.5"/>
-    <rect x="0" y="6" width="18" height="4" rx="1" fill="#f37894" opacity="0.5"/>
-  </svg>
-  <div class="section-divider__line"></div>
-</div>
-
-<!-- ============================================================
-     === SECTION DIVIDER ===
-     ============================================================ -->
-<div class="section-divider" aria-hidden="true">
-  <div class="section-divider__line"></div>
-  <svg width="20" height="16" viewBox="0 0 20 16" xmlns="http://www.w3.org/2000/svg">
-    <path d="M10 0 C10 0 0 4 0 9 C0 12.5 4.5 16 10 16 C15.5 16 20 12.5 20 9 C20 4 10 0 10 0Z" fill="#f37894" opacity="0.4"/>
-  </svg>
-  <div class="section-divider__line"></div>
-</div>
-
-<!-- ============================================================
-     === DRESS CODE SECTION ===
-     ============================================================ -->
-<section class="section dresscode reveal" id="dresscode" aria-label="Dress code">
-  <div class="container">
-    <header class="section__header">
-      <p class="section__eyebrow">Attire</p>
-      <h2 class="section__title">Dress Code</h2>
-    </header>
-
-    <!-- Color Palette Grid -->
-    <!-- 4-col grid: label | gents swatch | ladies swatch | label -->
-    <div class="dresscode__palette-wrap" role="table" aria-label="Dress code color palette">
-
-      <!-- Column headers -->
-      <div class="dresscode__col-header dresscode__col-header--left" role="columnheader">Gentlemen</div>
-      <div class="dresscode__col-header dresscode__col-header--swatch" role="columnheader"></div>
-      <div class="dresscode__col-header dresscode__col-header--swatch" role="columnheader"></div>
-      <div class="dresscode__col-header dresscode__col-header--right" role="columnheader">Ladies</div>
-
-      <!-- Row 1 -->
-      <span class="dresscode__label dresscode__label--left">Baby Blue</span>
-      <span class="dresscode__color" style="background:#89CFF0" role="img" aria-label="Baby Blue"></span>
-      <span class="dresscode__color" style="background:#FFB3C1" role="img" aria-label="Blush Pink"></span>
-      <span class="dresscode__label dresscode__label--right">Blush Pink / Baby Pink</span>
-
-      <!-- Row 2 -->
-      <span class="dresscode__label dresscode__label--left">Dusty Blue</span>
-      <span class="dresscode__color" style="background:#6E86A0" role="img" aria-label="Dusty Blue"></span>
-      <span class="dresscode__color" style="background:#D4899C" role="img" aria-label="Dusty Rose"></span>
-      <span class="dresscode__label dresscode__label--right">Dusty Rose</span>
-
-      <!-- Row 3 -->
-      <span class="dresscode__label dresscode__label--left">Cobalt Blue</span>
-      <span class="dresscode__color" style="background:#0047AB" role="img" aria-label="Cobalt Blue"></span>
-      <span class="dresscode__color" style="background:#A86070" role="img" aria-label="Muted Rose"></span>
-      <span class="dresscode__label dresscode__label--right">Muted Rose / Vintage Rose</span>
-
-      <!-- Row 4 -->
-      <span class="dresscode__label dresscode__label--left">Classic Navy Blue</span>
-      <span class="dresscode__color" style="background:#001b43" role="img" aria-label="Classic Navy Blue"></span>
-      <span class="dresscode__color" style="background:#8B2252" role="img" aria-label="Deep Rose"></span>
-      <span class="dresscode__label dresscode__label--right">Deep Rose / Raspberry Rose</span>
-
-    </div>
-
-    <p class="dresscode__attire-label">Formal Attire</p>
-
-  </div>
-</section>
-
-<!-- ============================================================
-     === RSVP SECTION ===
-     ============================================================ -->
-<section class="section rsvp" id="rsvp" aria-label="RSVP form">
-  <div class="container">
-    <header class="section__header">
-      <p class="section__eyebrow">RSVP</p>
-      <h2 class="section__title">Join Us in Celebrating God's Blessing</h2>
-    </header>
-
-    <div class="rsvp__form-wrap">
-
-      <!-- Success state (hidden until submitted) -->
-      <div class="rsvp__success" id="rsvp-success" role="alert" aria-live="polite">
-        <svg class="checkmark-svg" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle class="checkmark-circle" cx="26" cy="26" r="24"/>
-          <path class="checkmark-check" d="M14 27l9 9 16-16"/>
-        </svg>
-        <h3 class="rsvp__success-title">Thank you!</h3>
-        <p class="rsvp__success-text">We can't wait to celebrate with you.</p>
-      </div>
-
-      <!-- RSVP Form -->
-      <form class="rsvp__form" id="rsvp-form" novalidate aria-label="RSVP submission form">
-
-        <div class="form__group">
-          <label class="form__label" for="rsvp-name">Full Name</label>
-          <input
-            class="form__input"
-            type="text"
-            id="rsvp-name"
-            name="name"
-            placeholder="Your full name"
-            autocomplete="name"
-            aria-required="true"
-            aria-describedby="rsvp-name-error"
-          >
-          <span class="form__error" id="rsvp-name-error" role="alert">Please enter your full name.</span>
-        </div>
-
-        <div class="form__group">
-          <label class="form__label" for="rsvp-email">Email Address</label>
-          <input
-            class="form__input"
-            type="email"
-            id="rsvp-email"
-            name="email"
-            placeholder="your@email.com"
-            autocomplete="email"
-            aria-required="true"
-            aria-describedby="rsvp-email-error"
-          >
-          <span class="form__error" id="rsvp-email-error" role="alert">Please enter a valid email address.</span>
-        </div>
-
-        <div class="form__group" role="group" aria-labelledby="rsvp-attending-label">
-          <span class="form__label" id="rsvp-attending-label">Will you be attending?</span>
-          <div class="form__radio-group">
-            <label class="form__radio-label">
-              <input class="form__radio-input" type="radio" name="attending" value="yes" aria-required="true">
-              <span class="form__radio-custom" aria-hidden="true"></span>
-              Joyfully accepts
-            </label>
-            <label class="form__radio-label">
-              <input class="form__radio-input" type="radio" name="attending" value="no" aria-required="true">
-              <span class="form__radio-custom" aria-hidden="true"></span>
-              Regretfully declines
-            </label>
-          </div>
-          <span class="form__error" id="rsvp-attending-error" role="alert">Please select your attendance.</span>
-        </div>
-
-        <div class="form__group">
-          <label class="form__label" for="rsvp-guests">Number of Guests</label>
-          <select class="form__select form__input" id="rsvp-guests" name="guests" aria-required="true">
-            <option value="" disabled selected>Select number of guests</option>
-            <option value="1">1 Guest</option>
-            <option value="2">2 Guests</option>
-            <option value="3">3 Guests</option>
-            <option value="4">4 Guests</option>
-            <option value="5">5 Guests</option>
-            <option value="6">6 Guests</option>
-          </select>
-          <span class="form__error" id="rsvp-guests-error" role="alert">Please select the number of guests.</span>
-        </div>
-
-        <div class="form__group">
-          <label class="form__label" for="rsvp-dietary">Dietary Restrictions</label>
-          <textarea
-            class="form__textarea"
-            id="rsvp-dietary"
-            name="dietary"
-            placeholder="Any allergies or dietary requirements? (optional)"
-            aria-label="Dietary restrictions or allergies"
-          ></textarea>
-        </div>
-
-        <div class="form__group">
-          <label class="form__label" for="rsvp-message">Special Message</label>
-          <textarea
-            class="form__textarea"
-            id="rsvp-message"
-            name="message"
-            placeholder="Share a blessing or kind words for the couple… (optional)"
-            aria-label="Special message or blessing for the couple"
-          ></textarea>
-        </div>
-
-        <div class="rsvp__submit">
-          <button type="submit" class="btn btn--white" aria-label="Submit your RSVP">
-            Send RSVP with Love
           </button>
         </div>
 
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     === SECTION DIVIDER ===
-     ============================================================ -->
-<div class="section-divider" aria-hidden="true">
-  <div class="section-divider__line"></div>
-  <svg width="20" height="16" viewBox="0 0 20 16" xmlns="http://www.w3.org/2000/svg">
-    <path d="M10 0 C10 0 0 4 0 9 C0 12.5 4.5 16 10 16 C15.5 16 20 12.5 20 9 C20 4 10 0 10 0Z" fill="#f37894" opacity="0.4"/>
-  </svg>
-  <div class="section-divider__line"></div>
-</div>
-
-<!-- ============================================================
-     === GALLERY SECTION ===
-     ============================================================ -->
-<section class="section gallery reveal" id="gallery" aria-label="Photo gallery">
-  <div class="container">
-    <header class="section__header">
-      <p class="section__eyebrow">Gallery</p>
-      <h2 class="section__title">Moments Together</h2>
-    </header>
-  </div>
-
-  <div class="gallery__strip" role="list">
-    <div class="gallery__item" role="listitem">
-      <img class="gallery__img" src="https://picsum.photos/seed/wedding1/600/750" alt="Noel and Irene engagement photo" loading="lazy" width="600" height="750">
-      <div class="gallery__overlay" aria-hidden="true"></div>
-    </div>
-    <div class="gallery__item" role="listitem">
-      <img class="gallery__img" src="https://picsum.photos/seed/wedding2/600/400" alt="Couple at sunset" loading="lazy" width="600" height="400">
-      <div class="gallery__overlay" aria-hidden="true"></div>
-    </div>
-    <div class="gallery__item" role="listitem">
-      <img class="gallery__img" src="https://picsum.photos/seed/wedding3/600/400" alt="Romantic garden portrait" loading="lazy" width="600" height="400">
-      <div class="gallery__overlay" aria-hidden="true"></div>
-    </div>
-    <div class="gallery__item" role="listitem">
-      <img class="gallery__img" src="https://picsum.photos/seed/wedding4/600/750" alt="Couple laughing together" loading="lazy" width="600" height="750">
-      <div class="gallery__overlay" aria-hidden="true"></div>
-    </div>
-    <div class="gallery__item" role="listitem">
-      <img class="gallery__img" src="https://picsum.photos/seed/wedding5/600/400" alt="Candid moment" loading="lazy" width="600" height="400">
-      <div class="gallery__overlay" aria-hidden="true"></div>
-    </div>
-    <div class="gallery__item" role="listitem">
-      <img class="gallery__img" src="https://picsum.photos/seed/wedding6/600/400" alt="Engagement celebration" loading="lazy" width="600" height="400">
-      <div class="gallery__overlay" aria-hidden="true"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     === GIFT SECTION ===
-     ============================================================ -->
-<section class="section gift reveal" id="gift" aria-label="Wedding gift information">
-  <div class="container">
-    <header class="section__header">
-      <p class="section__eyebrow">Bless the Couple</p>
-      <h2 class="section__title">A Gift of Love</h2>
-    </header>
-    <p class="gift__note">
-      Your presence is the greatest gift. For those who wish to bless us,<br>
-      you may send your gift through the following:
-    </p>
-
-    <div class="gift__grid">
-
-      <!-- GCash Card -->
-      <article class="gift__card reveal" aria-label="GCash payment details">
-        <div class="gift__card-icon" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="20" r="19" fill="none" stroke="#f37894" stroke-width="1.5"/>
-            <text x="20" y="25" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="11" fill="#f37894">GCash</text>
-          </svg>
-        </div>
-        <h3 class="gift__bank-name">GCash</h3>
-        <!-- QR placeholder — replace src with actual QR image or embed base64 -->
-        <div class="gift__qr-wrap" aria-label="GCash QR code placeholder">
-          <svg width="110" height="110" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect width="110" height="110" fill="white"/>
-            <!-- Top-left finder -->
-            <rect x="6" y="6" width="30" height="30" rx="3" fill="none" stroke="#001b43" stroke-width="3"/>
-            <rect x="13" y="13" width="16" height="16" rx="1" fill="#001b43"/>
-            <!-- Top-right finder -->
-            <rect x="74" y="6" width="30" height="30" rx="3" fill="none" stroke="#001b43" stroke-width="3"/>
-            <rect x="81" y="13" width="16" height="16" rx="1" fill="#001b43"/>
-            <!-- Bottom-left finder -->
-            <rect x="6" y="74" width="30" height="30" rx="3" fill="none" stroke="#001b43" stroke-width="3"/>
-            <rect x="13" y="81" width="16" height="16" rx="1" fill="#001b43"/>
-            <!-- Data modules (decorative pattern) -->
-            <rect x="44" y="6" width="6" height="6" fill="#001b43"/><rect x="52" y="6" width="6" height="6" fill="#001b43"/><rect x="60" y="6" width="6" height="6" fill="#001b43"/>
-            <rect x="44" y="14" width="6" height="6" fill="#001b43"/><rect x="60" y="14" width="6" height="6" fill="#001b43"/><rect x="68" y="14" width="6" height="6" fill="#001b43"/>
-            <rect x="44" y="22" width="6" height="6" fill="#001b43"/><rect x="52" y="22" width="6" height="6" fill="#001b43"/><rect x="68" y="22" width="6" height="6" fill="#001b43"/>
-            <rect x="44" y="44" width="6" height="6" fill="#001b43"/><rect x="60" y="44" width="6" height="6" fill="#001b43"/><rect x="74" y="44" width="6" height="6" fill="#001b43"/><rect x="98" y="44" width="6" height="6" fill="#001b43"/>
-            <rect x="44" y="52" width="6" height="6" fill="#001b43"/><rect x="52" y="52" width="6" height="6" fill="#001b43"/><rect x="68" y="52" width="6" height="6" fill="#001b43"/><rect x="82" y="52" width="6" height="6" fill="#001b43"/><rect x="98" y="52" width="6" height="6" fill="#001b43"/>
-            <rect x="44" y="60" width="6" height="6" fill="#001b43"/><rect x="74" y="60" width="6" height="6" fill="#001b43"/><rect x="90" y="60" width="6" height="6" fill="#001b43"/>
-            <rect x="44" y="68" width="6" height="6" fill="#001b43"/><rect x="52" y="68" width="6" height="6" fill="#001b43"/><rect x="60" y="68" width="6" height="6" fill="#001b43"/><rect x="74" y="68" width="6" height="6" fill="#001b43"/><rect x="98" y="68" width="6" height="6" fill="#001b43"/>
-            <rect x="44" y="76" width="6" height="6" fill="#001b43"/><rect x="68" y="76" width="6" height="6" fill="#001b43"/><rect x="82" y="76" width="6" height="6" fill="#001b43"/>
-            <rect x="44" y="84" width="6" height="6" fill="#001b43"/><rect x="52" y="84" width="6" height="6" fill="#001b43"/><rect x="60" y="84" width="6" height="6" fill="#001b43"/><rect x="82" y="84" width="6" height="6" fill="#001b43"/><rect x="90" y="84" width="6" height="6" fill="#001b43"/>
-            <rect x="44" y="92" width="6" height="6" fill="#001b43"/><rect x="60" y="92" width="6" height="6" fill="#001b43"/><rect x="74" y="92" width="6" height="6" fill="#001b43"/><rect x="98" y="92" width="6" height="6" fill="#001b43"/>
-            <!-- Center accent -->
-            <rect x="51" y="51" width="8" height="8" rx="1" fill="#f37894"/>
-          </svg>
-        </div>
-        <p style="font-family:var(--font-sans);font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:-0.25rem;margin-bottom:0.75rem;">Replace with your actual QR code</p>
-        <div class="gift__detail">
-          <p class="gift__detail-label">Account Name</p>
-          <p class="gift__detail-value">Noel M. Estrada</p>
-        </div>
-        <div class="gift__detail">
-          <p class="gift__detail-label">GCash Number</p>
-          <p class="gift__detail-value" id="gcash-num">09XX-XXX-XXXX</p>
-          <button class="gift__copy-btn" onclick="copyGift('gcash-num', this)" aria-label="Copy GCash number">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy
-          </button>
-        </div>
-      </article>
-
-      <!-- Bank Transfer Card -->
-      <article class="gift__card reveal" aria-label="Bank transfer details">
-        <div class="gift__card-icon" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="12" width="36" height="22" rx="3" fill="none" stroke="#f37894" stroke-width="1.5"/>
-            <path d="M2,18 L38,18" stroke="#f37894" stroke-width="1.5"/>
-            <rect x="6" y="22" width="8" height="4" rx="1" fill="#f37894" opacity="0.5"/>
-            <path d="M20,6 L8,12 L32,12 Z" fill="#f37894" opacity="0.7"/>
-          </svg>
-        </div>
-        <h3 class="gift__bank-name">Bank Transfer</h3>
-        <div class="gift__detail">
-          <p class="gift__detail-label">Bank</p>
-          <p class="gift__detail-value">BDO / LandBank</p>
-        </div>
-        <div class="gift__detail">
-          <p class="gift__detail-label">Account Name</p>
-          <p class="gift__detail-value">Noel M. Estrada</p>
-        </div>
-        <div class="gift__detail">
-          <p class="gift__detail-label">Account Number</p>
-          <p class="gift__detail-value" id="bank-num">XXXX-XXXX-XXXX</p>
-          <button class="gift__copy-btn" onclick="copyGift('bank-num', this)" aria-label="Copy bank account number">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy
-          </button>
-        </div>
-        <p style="font-family:var(--font-sans);font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.5rem;">Update with your actual account details</p>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     === SECTION DIVIDER ===
-     ============================================================ -->
-<div class="section-divider" aria-hidden="true">
-  <div class="section-divider__line"></div>
-  <svg width="18" height="22" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
-    <rect x="7" y="0" width="4" height="22" rx="1" fill="#f37894" opacity="0.5"/>
-    <rect x="0" y="6" width="18" height="4" rx="1" fill="#f37894" opacity="0.5"/>
-  </svg>
-  <div class="section-divider__line"></div>
-</div>
-
-<!-- ============================================================
-     === WEDDING ENTOURAGE SECTION ===
-     ============================================================ -->
-<section class="section party" id="party" aria-label="Wedding entourage">
-  <div class="container">
-    <header class="section__header">
-      <p class="section__eyebrow">Wedding Entourage</p>
-      <h2 class="section__title">Those Who Stand With Us</h2>
-    </header>
-
-    <!-- Best Man -->
-    <div class="party__section-group reveal">
-      <h3 class="party__group-heading">Best Man</h3>
-      <p class="party__member-solo">Ptr. David N. Curacho</p>
-    </div>
-
-    <!-- Groomsmen -->
-    <div class="party__section-group reveal">
-      <h3 class="party__group-heading">Groomsmen</h3>
-      <div class="party__member-grid party__member-grid--3col">
-        <p class="party__member-name">Velle Chan Cornelio</p>
-        <p class="party__member-name">Scott Lyndon Matulac</p>
-        <p class="party__member-name">Cyrel John Rollo</p>
-        <p class="party__member-name">Kheny James Tapiahan</p>
-        <p class="party__member-name">John Michael Retiza</p>
-        <p class="party__member-name">Aaron Tapiahan</p>
       </div>
-    </div>
 
-    <!-- Bridesmaids -->
-    <div class="party__section-group reveal">
-      <h3 class="party__group-heading">Bridesmaids</h3>
-      <div class="party__member-grid party__member-grid--4col">
-        <p class="party__member-name">Judibel Pascual</p>
-        <p class="party__member-name">Roe Lovene Ortiz</p>
-        <p class="party__member-name">Mary Grace Hinampas</p>
-        <p class="party__member-name">Missy Cayoso</p>
-        <p class="party__member-name">May Ann Padrones</p>
-        <p class="party__member-name">Mae Hope Caulina</p>
-        <p class="party__member-name">Jhanin Almerol</p>
-        <p class="party__member-name">Thea Yapac</p>
-      </div>
-    </div>
+      <!-- Flap (3D rotating triangle) -->
+      <div class="env-flap-wrap" aria-hidden="true">
+        <div class="env-flap" id="env-flap">
 
-    <!-- Bearers -->
-    <div class="party__section-group reveal">
-      <h3 class="party__group-heading">Bearers</h3>
-      <div class="party__special-grid party__special-grid--3col">
-        <div class="party__special-card">
-          <p class="party__special-role">To Carry Our Symbol of Love</p>
-          <p class="party__special-name">Cian Timothy Cabardo</p>
-        </div>
-        <div class="party__special-card">
-          <p class="party__special-role">To Carry Our Symbol of Faith</p>
-          <p class="party__special-name">Christian Terence Estrada</p>
-        </div>
-        <div class="party__special-card">
-          <p class="party__special-role">To Carry Our Symbol of Treasure</p>
-          <p class="party__special-name">Aerol Brix Baguio</p>
+          <!-- Wax seal (fades out before flap opens) -->
+          <div class="env-seal" id="env-seal" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+              <rect x="9.5" y="2"  width="3"  height="18" rx="1" fill="white" opacity="0.92"/>
+              <rect x="2"   y="9.5" width="18" height="3"  rx="1" fill="white" opacity="0.92"/>
+            </svg>
+          </div>
+
         </div>
       </div>
+
     </div>
+  </div><!-- /.envelope-wrap -->
 
-    <!-- Principal Sponsors -->
-    <div class="party__section-group reveal">
-      <h3 class="party__group-heading">Principal Sponsors</h3>
-      <div class="party__special-grid party__special-grid--3col">
-        <div class="party__special-card">
-          <p class="party__special-role">To Clothe Us as One</p>
-          <p class="party__special-name">Ptr. Jayzon Quilly<br>&amp; Mrs. Carol Quilly</p>
-        </div>
-        <div class="party__special-card">
-          <p class="party__special-role">To Bind Us Together</p>
-          <p class="party__special-name">Ptr. Delbert Almerol<br>&amp; Mrs. Maria Exaltacion Almerol</p>
-        </div>
-        <div class="party__special-card">
-          <p class="party__special-role">To Light Our Path</p>
-          <p class="party__special-name">Mr. Ephraim Gumapac<br>&amp; Mrs. Lucille Gumapac</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Flower Ladies & Girl -->
-    <div class="party__section-group reveal">
-      <h3 class="party__group-heading">To Shower Our Aisle with Beauty</h3>
-      <div class="party__special-grid">
-        <div class="party__special-card">
-          <p class="party__special-role">Flower Ladies</p>
-          <p class="party__special-name">Rohan Bree Cabalona<br>Thea Abigail Gumapac<br>Ryca Elisha Cabardo</p>
-        </div>
-        <div class="party__special-card">
-          <p class="party__special-role">Flower Girl</p>
-          <p class="party__special-name">Athena Brielle Cañete</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-</main>
-
-<!-- ============================================================
-     === FOOTER ===
-     ============================================================ -->
-<footer class="footer" role="contentinfo" aria-label="Wedding footer">
-  <p class="footer__names">Noel &amp; Irene</p>
-  <p class="footer__date">July 7, 2026</p>
-  <p class="footer__faith">With love &amp; faith ✝</p>
-
-  <blockquote class="footer__verse">
-    "What God has joined together, let no one separate."<br>
-    — Matthew 19:6
-  </blockquote>
-
-  <nav class="footer__social" aria-label="Social media links">
-    <a class="footer__social-link" href="#" aria-label="Follow us on Instagram" rel="noopener noreferrer">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8" fill="none"/>
-        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8" fill="none"/>
-        <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+  <!-- Hint text + tap icon -->
+  <div class="env-hint" id="env-hint" aria-hidden="true">
+    <p class="hint-text">Tap to open your invitation</p>
+    <div class="hint-icon" aria-hidden="true">
+      <!-- Hand / tap SVG icon -->
+      <svg width="30" height="38" viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+        <!-- Finger 1 (index) -->
+        <path d="M15 2 C12.8 2 11 3.8 11 6 L11 20
+                 C9.8 19.3 8.4 19.5 7.3 20.4
+                 C6 21.5 6.2 23 6.2 23 L6.5 30
+                 C6.5 34 10 37 14.5 37 L19 37
+                 C23 37 25 33.5 25 30 L25 14
+                 C25 12 23.3 10.5 21.3 10.5
+                 C20.7 10.5 20.1 10.7 19.6 11
+                 C19 9.4 17.5 8.3 15.8 8.2
+                 L15.8 6 C15.8 3.8 15.6 2 15 2 Z"
+              fill="var(--navy)" opacity="0.22"/>
+        <path d="M15 3.5 C13.6 3.5 12.5 4.6 12.5 6 L12.5 21
+                 L11.3 20.2 C10.5 19.6 9.4 19.7 8.7 20.4
+                 C8.2 21 8 22 8.5 23 L11.5 28
+                 C12.5 29.5 14 30.5 15.5 30.5 L18.5 30.5
+                 C21.5 30.5 23 28.5 23 26 L23 14
+                 C23 12.9 22.1 12 21 12
+                 C20.5 12 19.9 12.2 19.6 12.5
+                 C19.3 11.5 18.3 10.8 17.2 10.8
+                 C16.7 10.8 16.2 11 15.9 11.3
+                 L15.9 6 C15.9 4.6 15.5 3.5 15 3.5 Z"
+              fill="var(--navy)" opacity="0.42"/>
+        <!-- Tap ripple -->
+        <circle cx="15" cy="4" r="3" fill="none" stroke="var(--pink)" stroke-width="1.2" opacity="0.45"/>
       </svg>
-    </a>
-  </nav>
+    </div>
+  </div>
 
-  <p class="footer__copy">Noel &amp; Irene &copy; 2026 · Made with love &amp; faith</p>
-</footer>
+</div><!-- /#stage-envelope -->
 
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
 <script>
-/* === INTRO ENVELOPE OPENER === */
-(function () {
-  const intro  = document.getElementById('intro');
-  const cta    = document.getElementById('intro-cta');
-  const skip   = document.getElementById('intro-skip');
-  if (!intro) return;
+document.addEventListener('DOMContentLoaded', function () {
+  'use strict';
 
-  document.body.style.overflow = 'hidden';
+  /* --- Element references --- */
+  const stageLoading  = document.getElementById('stage-loading');
+  const stageEnvelope = document.getElementById('stage-envelope');
+  const envelope      = document.getElementById('envelope');
+  const envFlap       = document.getElementById('env-flap');
+  const envSeal       = document.getElementById('env-seal');
+  const envGlow       = document.getElementById('env-glow');
+  const envHint       = document.getElementById('env-hint');
+  const letterCard    = document.getElementById('letter-card');
+  const openBtn       = document.getElementById('open-btn');
+  const outroOverlay  = document.getElementById('outro-overlay');
+  const ariaStatus    = document.getElementById('aria-status');
+  let   isOpened      = false;
 
-  function openInvitation() {
-    clearTimeout(autoTimer);
-    intro.classList.add('is-leaving');
-    setTimeout(() => {
-      intro.style.display = 'none';
-      document.body.style.overflow = '';
-    }, 950);
+  /* --- Announce helper --- */
+  function announce(msg) {
+    ariaStatus.textContent = '';
+    requestAnimationFrame(() => { ariaStatus.textContent = msg; });
   }
 
-  cta.addEventListener('click', openInvitation);
-  skip.addEventListener('click', openInvitation);
-
-  const autoTimer = setTimeout(openInvitation, 9000);
-})();
-
-/* === GIFT COPY TO CLIPBOARD === */
-function copyGift(id, btn) {
-  const text = document.getElementById(id).textContent.trim();
-  navigator.clipboard.writeText(text).then(() => {
-    btn.classList.add('copied');
-    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
-    setTimeout(() => {
-      btn.classList.remove('copied');
-      btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
-    }, 2500);
-  }).catch(() => {
-    const range = document.createRange();
-    range.selectNode(document.getElementById(id));
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
-    document.execCommand('copy');
-    window.getSelection().removeAllRanges();
-  });
-}
-
-/* === COUNTDOWN TIMER === */
-(function () {
-  const target = new Date('2026-07-07T13:00:00');
-  const els = {
-    days:    document.getElementById('cd-days'),
-    hours:   document.getElementById('cd-hours'),
-    minutes: document.getElementById('cd-minutes'),
-    seconds: document.getElementById('cd-seconds'),
-    passed:  document.getElementById('cd-passed'),
-    timer:   document.querySelector('.countdown__timer'),
-  };
-
-  const prev = { days: null, hours: null, minutes: null, seconds: null };
-
-  function pad(n) {
-    return String(n).padStart(2, '0');
-  }
-
-  function flipUpdate(el, key, val) {
-    const str = pad(val);
-    if (prev[key] !== str) {
-      el.classList.remove('flip');
-      void el.offsetWidth; // reflow
-      el.classList.add('flip');
-      el.textContent = str;
-      prev[key] = str;
-    }
-  }
-
-  function tick() {
-    const now  = new Date();
-    const diff = target - now;
-
-    if (diff <= 0) {
-      if (els.timer) els.timer.style.display = 'none';
-      if (els.passed) els.passed.style.display = 'block';
-      return;
-    }
-
-    const days    = Math.floor(diff / 86400000);
-    const hours   = Math.floor((diff % 86400000) / 3600000);
-    const minutes = Math.floor((diff % 3600000)  / 60000);
-    const seconds = Math.floor((diff % 60000)    / 1000);
-
-    flipUpdate(els.days,    'days',    days);
-    flipUpdate(els.hours,   'hours',   hours);
-    flipUpdate(els.minutes, 'minutes', minutes);
-    flipUpdate(els.seconds, 'seconds', seconds);
-  }
-
-  tick();
-  setInterval(tick, 1000);
-})();
-
-/* === INTERSECTION OBSERVER FOR SCROLL ANIMATIONS === */
-(function () {
+  /* --- Reduced motion check --- */
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) return;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+  /* ============================================================
+     STAGE 1 → 2 : After 2.5 s, fade loading and show envelope
+     ============================================================ */
+  setTimeout(function () {
+    stageLoading.classList.add('is-fading');
+    announce('Invitation ready. Tap the envelope to open it.');
+
+    function showEnvelope() {
+      stageLoading.classList.add('is-gone');
+      stageEnvelope.classList.remove('is-gone');
+      /* Force reflow then fade in */
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          stageEnvelope.style.opacity = '1';
+          stageEnvelope.style.transition = 'opacity 0.5s ease';
+        });
       });
-    },
-    { threshold: 0.15 }
-  );
+    }
 
-  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-})();
+    if (prefersReduced) {
+      showEnvelope();
+    } else {
+      stageLoading.addEventListener('transitionend', function handler(e) {
+        if (e.propertyName !== 'opacity') return;
+        showEnvelope();
+        stageLoading.removeEventListener('transitionend', handler);
+      });
+      /* Fallback in case transitionend is unreliable */
+      setTimeout(showEnvelope, 700);
+    }
+  }, 2500);
 
-/* === ICS CALENDAR GENERATOR === */
-function generateICS(type) {
-  const events = {
-    ceremony: {
-      summary:     'Noel & Irene Wedding Ceremony',
-      location:    'Purok Guiho, Maranding Lala, Lanao del Norte',
-      description: 'Wedding Ceremony at Bethel Fundamental Baptist Church. What God has joined together, let no one separate.',
-      dtstart:     '20260707T130000',
-      dtend:       '20260707T150000',
-    },
-    reception: {
-      summary:     'Noel & Irene Wedding Reception',
-      location:    'Bag-ong Dawis, Baroy, Lanao del Norte',
-      description: 'Wedding Reception at Horizon Resort & Splashway Waterpark, Bag-ong Dawis, Baroy, Lanao del Norte.',
-      dtstart:     '20260707T150000',
-      dtend:       '20260707T210000',
-    },
-  };
+  /* ============================================================
+     STAGE 2 → 3 → 4 : Open sequence on click / keyboard
+     ============================================================ */
+  function openSequence() {
+    if (isOpened) return;
+    isOpened = true;
 
-  const ev = events[type];
-  if (!ev) return;
+    envelope.setAttribute('aria-expanded', 'true');
+    envelope.setAttribute('aria-label', 'Opening your invitation');
+    envelope.style.cursor  = 'default';
+    envelope.style.pointerEvents = 'none';
 
-  const uid = `${type}-noel-irene-2026@wedding`;
-  const now = new Date().toISOString().replace(/[-:.]/g, '').slice(0, 15) + 'Z';
+    /* Hide hint */
+    envHint.classList.add('is-gone');
 
-  const ics = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//Noel & Irene Wedding//EN',
-    'CALSCALE:GREGORIAN',
-    'METHOD:PUBLISH',
-    'BEGIN:VEVENT',
-    `UID:${uid}`,
-    `DTSTAMP:${now}`,
-    `DTSTART:${ev.dtstart}`,
-    `DTEND:${ev.dtend}`,
-    `SUMMARY:${ev.summary}`,
-    `LOCATION:${ev.location}`,
-    `DESCRIPTION:${ev.description}`,
-    'END:VEVENT',
-    'END:VCALENDAR',
-  ].join('\r\n');
+    /* STAGE 3a — Fade wax seal */
+    envSeal.classList.add('is-fading');
+    announce('Opening envelope…');
 
-  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href     = url;
-  a.download = `noel-irene-${type}.ics`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
+    /* When seal fade ends → open flap */
+    function openFlap() {
+      envFlap.classList.add('is-open');
+      envGlow.classList.add('is-lit');
+    }
 
-/* === RSVP FORM VALIDATION & SUBMISSION === */
-(function () {
-  const form    = document.getElementById('rsvp-form');
-  const success = document.getElementById('rsvp-success');
+    /* When flap transition ends → raise letter */
+    function raiseLetterOnFlapDone() {
+      letterCard.setAttribute('aria-hidden', 'false');
+      letterCard.classList.add('is-risen');
+      announce('You are invited! Your invitation letter has arrived.');
+    }
 
-  if (!form) return;
-
-  function showError(id, show) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    if (show) el.classList.add('visible');
-    else       el.classList.remove('visible');
-  }
-
-  function markField(el, hasError) {
-    if (hasError) el.classList.add('error');
-    else          el.classList.remove('error');
-  }
-
-  function validateEmail(v) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-  }
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const name      = form.querySelector('#rsvp-name');
-    const email     = form.querySelector('#rsvp-email');
-    const attending = form.querySelector('input[name="attending"]:checked');
-    const guests    = form.querySelector('#rsvp-guests');
-
-    let valid = true;
-
-    // Name
-    const nameOk = name.value.trim().length >= 2;
-    markField(name, !nameOk);
-    showError('rsvp-name-error', !nameOk);
-    if (!nameOk) valid = false;
-
-    // Email
-    const emailOk = validateEmail(email.value.trim());
-    markField(email, !emailOk);
-    showError('rsvp-email-error', !emailOk);
-    if (!emailOk) valid = false;
-
-    // Attending
-    showError('rsvp-attending-error', !attending);
-    if (!attending) valid = false;
-
-    // Guests
-    const guestsOk = guests.value !== '';
-    markField(guests, !guestsOk);
-    showError('rsvp-guests-error', !guestsOk);
-    if (!guestsOk) valid = false;
-
-    if (!valid) {
-      // Focus first error field
-      const firstError = form.querySelector('.error, .form__error.visible');
-      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (prefersReduced) {
+      openFlap();
+      raiseLetterOnFlapDone();
       return;
     }
 
-    // Build mailto fallback
-    const dietary = form.querySelector('#rsvp-dietary').value.trim();
-    const message = form.querySelector('#rsvp-message').value.trim();
-    const body = [
-      `Name: ${name.value.trim()}`,
-      `Email: ${email.value.trim()}`,
-      `Attending: ${attending.value}`,
-      `Guests: ${guests.value}`,
-      dietary ? `Dietary: ${dietary}` : '',
-      message ? `Message: ${message}` : '',
-    ].filter(Boolean).join('\n');
+    /* Use transitionend for precise chaining */
+    const sealTimer = setTimeout(openFlap, 420);
 
-    const mailtoHref = `mailto:rsvp@example.com?subject=RSVP%20from%20${encodeURIComponent(name.value.trim())}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoHref;
+    envSeal.addEventListener('transitionend', function onSeal(e) {
+      if (e.propertyName !== 'opacity') return;
+      clearTimeout(sealTimer);
+      openFlap();
+      envSeal.removeEventListener('transitionend', onSeal);
+    }, { once: true });
 
-    // Show success state
-    form.style.display = 'none';
-    success.classList.add('visible');
-    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    /* After flap opens → raise letter */
+    const flapTimer = setTimeout(raiseLetterOnFlapDone, 1350);
+
+    envFlap.addEventListener('transitionend', function onFlap(e) {
+      if (e.propertyName !== 'transform') return;
+      clearTimeout(flapTimer);
+      raiseLetterOnFlapDone();
+      envFlap.removeEventListener('transitionend', onFlap);
+    }, { once: true });
+  }
+
+  envelope.addEventListener('click', openSequence);
+  envelope.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openSequence();
+    }
   });
 
-  // Live clear errors on input
-  form.querySelectorAll('.form__input, .form__textarea, .form__select').forEach((el) => {
-    el.addEventListener('input', function () {
-      el.classList.remove('error');
-    });
+  /* ============================================================
+     STAGE 5 : Navigate to main invitation site
+     ============================================================ */
+  openBtn.addEventListener('click', function () {
+    announce('Opening invitation website…');
+    outroOverlay.classList.add('is-fading');
+
+    function navigate() { window.location.href = 'invitation.html'; }
+
+    if (prefersReduced) {
+      navigate();
+      return;
+    }
+
+    outroOverlay.addEventListener('transitionend', function onOutro(e) {
+      if (e.propertyName !== 'opacity') return;
+      navigate();
+      outroOverlay.removeEventListener('transitionend', onOutro);
+    }, { once: true });
+
+    /* Fallback */
+    setTimeout(navigate, 900);
   });
-})();
+
+});
 </script>
 
 </body>

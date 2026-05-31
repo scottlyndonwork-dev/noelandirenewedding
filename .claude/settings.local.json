@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($f = \"c:\\\\Users\\\\SM\\\\Desktop\\\\weddingofnoelandirene\\\\index.html\"; $bytes = \\(Get-Item $f\\).Length; \"$\\([math]::Round\\($bytes/1024, 1\\)\\) KB\")"
+    ]
+  }
+}
