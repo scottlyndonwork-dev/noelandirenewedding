@@ -94,29 +94,75 @@ button, a {
    === HERO SECTION ===
    ============================================================ */
 .hero {
-  position: relative;
   min-height: 100svh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: 44vw 1fr;
+  grid-template-columns: 1fr;
   overflow: hidden;
-  background-color: var(--color-white);
-  padding: 2rem 1.5rem;
 }
 
-.hero__floral-frame {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  will-change: transform;
+@media (min-width: 900px) {
+  .hero {
+    grid-template-rows: 1fr;
+    grid-template-columns: 46% 54%;
+  }
 }
 
-.hero__floral-svg {
+.hero__photo-panel {
+  overflow: hidden;
+  grid-row: 1;
+  grid-column: 1;
+}
+
+@media (min-width: 900px) {
+  .hero__photo-panel {
+    grid-column: 2;
+    grid-row: 1;
+    height: 100svh;
+    position: sticky;
+    top: 0;
+  }
+}
+
+.hero__photo {
   width: 100%;
   height: 100%;
-  animation: floralRotate 60s linear infinite;
-  will-change: transform;
+  object-fit: cover;
+  object-position: center 22%;
+  display: block;
 }
+
+.hero__content-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem 5rem;
+  background-color: var(--color-white);
+  text-align: center;
+  grid-row: 2;
+  grid-column: 1;
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .hero__content-panel {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 4rem 3.5rem;
+    min-height: 100svh;
+  }
+}
+
+.hero__floral-corner {
+  position: absolute;
+  pointer-events: none;
+  opacity: 1;
+}
+
+.hero__floral-corner--tl { top: 0; left: 0; }
+.hero__floral-corner--br { bottom: 0; right: 0; transform: rotate(180deg); }
 
 @keyframes floralRotate {
   from { transform: rotate(0deg); }
@@ -127,7 +173,7 @@ button, a {
   position: relative;
   z-index: 2;
   text-align: center;
-  max-width: 700px;
+  max-width: 480px;
   width: 100%;
 }
 
@@ -215,14 +261,17 @@ button, a {
 
 .hero__scroll {
   position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
   opacity: 0;
+  transform: translateY(8px);
   animation: heroPop 0.9s ease forwards;
   animation-delay: 1.7s;
   will-change: transform;
@@ -1116,6 +1165,228 @@ button, a {
 }
 
 /* ============================================================
+   === DRESS CODE SECTION ===
+   ============================================================ */
+.dresscode {
+  background-color: var(--color-white);
+}
+
+.dresscode__palette-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+  max-width: 580px;
+  margin: 0 auto 3rem;
+}
+
+.dresscode__col-title {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+  margin-bottom: 1.1rem;
+  grid-column: 1 / -1;
+  display: none;
+}
+
+.dresscode__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.dresscode__col--right {
+  align-items: flex-end;
+}
+
+.dresscode__swatch-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.dresscode__swatch-row--flip {
+  flex-direction: row-reverse;
+}
+
+.dresscode__color {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+}
+
+.dresscode__color-name {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(0.65rem, 2vw, 0.78rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+  line-height: 1.35;
+}
+
+.dresscode__swatch-row--flip .dresscode__color-name {
+  text-align: right;
+}
+
+.dresscode__attire {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-navy-10);
+}
+
+.dresscode__attire-title {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+  margin-bottom: 1.75rem;
+}
+
+.dresscode__icons {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 3rem;
+}
+
+.dresscode__icon { display: block; }
+
+/* ============================================================
+   === GIFT SECTION ===
+   ============================================================ */
+.gift {
+  background-color: var(--color-navy);
+  color: var(--color-white);
+}
+
+.gift .section__title { color: var(--color-white); }
+.gift .section__eyebrow { color: var(--color-pink); }
+
+.gift__note {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.65);
+  max-width: 480px;
+  margin: -1.5rem auto 2.5rem;
+  line-height: 1.7;
+}
+
+.gift__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+  .gift__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.gift__card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.gift__card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--color-pink);
+}
+
+.gift__card-icon {
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+.gift__bank-name {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--color-white);
+  margin-bottom: 1.25rem;
+}
+
+.gift__detail {
+  margin-bottom: 0.85rem;
+}
+
+.gift__detail-label {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-bottom: 0.2rem;
+}
+
+.gift__detail-value {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--color-white);
+  letter-spacing: 0.04em;
+}
+
+.gift__copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  padding: 0.35rem 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: border-color var(--transition-base), color var(--transition-base);
+  min-height: 32px;
+}
+
+.gift__copy-btn:hover {
+  border-color: var(--color-pink);
+  color: var(--color-pink);
+}
+
+.gift__copy-btn.copied {
+  border-color: var(--color-pink);
+  color: var(--color-pink);
+}
+
+.gift__qr-wrap {
+  background: var(--color-white);
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: inline-block;
+  margin: 0.75rem 0;
+}
+
+/* ============================================================
    === MISC UTILITIES ===
    ============================================================ */
 .container {
@@ -1142,100 +1413,53 @@ button, a {
 <main role="main">
 <section class="hero" aria-label="Wedding invitation hero">
 
-  <!-- Animated Floral Frame -->
-  <div class="hero__floral-frame" aria-hidden="true">
-    <svg class="hero__floral-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-      <g fill="none" stroke="#f37894" stroke-opacity="0.20" stroke-width="1.2" stroke-linecap="round">
-        <!-- Corner flourish top-left -->
-        <path d="M60,60 Q80,40 100,60 Q80,80 60,60Z"/>
-        <path d="M60,60 Q40,80 60,100 Q80,80 60,60Z"/>
-        <path d="M60,60 Q85,85 110,60 Q85,35 60,60Z"/>
-        <path d="M60,60 Q35,85 60,110 Q85,85 60,60Z"/>
-        <path d="M60,60 L60,20 M60,60 L20,60"/>
-        <path d="M80,30 Q90,15 100,25 Q85,35 80,30Z"/>
-        <path d="M30,80 Q15,90 25,100 Q35,85 30,80Z"/>
-        <circle cx="60" cy="60" r="4"/>
-        <circle cx="60" cy="60" r="8" stroke-opacity="0.1"/>
-        <!-- Stem lines -->
-        <path d="M60,60 Q100,90 130,70"/>
-        <path d="M60,60 Q90,100 70,130"/>
-        <!-- Leaf top-left -->
-        <path d="M110,70 Q130,50 120,40 Q115,55 110,70Z"/>
-        <path d="M70,110 Q50,130 40,120 Q55,115 70,110Z"/>
-
-        <!-- Corner flourish top-right -->
-        <path d="M740,60 Q720,40 700,60 Q720,80 740,60Z"/>
-        <path d="M740,60 Q760,80 740,100 Q720,80 740,60Z"/>
-        <path d="M740,60 Q715,85 690,60 Q715,35 740,60Z"/>
-        <path d="M740,60 Q765,85 740,110 Q715,85 740,60Z"/>
-        <path d="M740,60 L740,20 M740,60 L780,60"/>
-        <path d="M720,30 Q710,15 700,25 Q715,35 720,30Z"/>
-        <path d="M770,80 Q785,90 775,100 Q765,85 770,80Z"/>
-        <circle cx="740" cy="60" r="4"/>
-        <circle cx="740" cy="60" r="8" stroke-opacity="0.1"/>
-        <path d="M740,60 Q700,90 670,70"/>
-        <path d="M740,60 Q710,100 730,130"/>
-        <path d="M690,70 Q670,50 680,40 Q685,55 690,70Z"/>
-        <path d="M730,110 Q750,130 760,120 Q745,115 730,110Z"/>
-
-        <!-- Corner flourish bottom-left -->
-        <path d="M60,740 Q80,760 100,740 Q80,720 60,740Z"/>
-        <path d="M60,740 Q40,720 60,700 Q80,720 60,740Z"/>
-        <path d="M60,740 Q85,715 110,740 Q85,765 60,740Z"/>
-        <path d="M60,740 Q35,715 60,700 Q85,715 60,740Z" stroke-opacity="0.1"/>
-        <path d="M60,740 L60,780 M60,740 L20,740"/>
-        <circle cx="60" cy="740" r="4"/>
-        <path d="M60,740 Q100,710 130,730"/>
-        <path d="M110,730 Q130,750 120,760 Q115,745 110,730Z"/>
-
-        <!-- Corner flourish bottom-right -->
-        <path d="M740,740 Q720,760 700,740 Q720,720 740,740Z"/>
-        <path d="M740,740 Q760,720 740,700 Q720,720 740,740Z"/>
-        <path d="M740,740 Q715,715 690,740 Q715,765 740,740Z"/>
-        <path d="M740,740 L740,780 M740,740 L780,740"/>
-        <circle cx="740" cy="740" r="4"/>
-        <path d="M740,740 Q700,710 670,730"/>
-        <path d="M690,730 Q670,750 680,760 Q685,745 690,730Z"/>
-
-        <!-- Top center floral -->
-        <path d="M380,30 Q390,10 400,30 Q410,10 420,30"/>
-        <path d="M400,30 L400,50"/>
-        <path d="M388,38 Q378,48 388,58 Q398,48 388,38Z"/>
-        <path d="M412,38 Q422,48 412,58 Q402,48 412,38Z"/>
-
-        <!-- Bottom center floral -->
-        <path d="M380,770 Q390,790 400,770 Q410,790 420,770"/>
-        <path d="M400,770 L400,750"/>
-        <path d="M388,762 Q378,752 388,742 Q398,752 388,762Z"/>
-        <path d="M412,762 Q422,752 412,742 Q402,752 412,762Z"/>
-
-        <!-- Left center -->
-        <path d="M30,380 Q10,390 30,400 Q10,410 30,420"/>
-        <path d="M30,400 L50,400"/>
-        <path d="M38,388 Q48,378 58,388 Q48,398 38,388Z"/>
-        <path d="M38,412 Q48,422 58,412 Q48,402 38,412Z"/>
-
-        <!-- Right center -->
-        <path d="M770,380 Q790,390 770,400 Q790,410 770,420"/>
-        <path d="M770,400 L750,400"/>
-        <path d="M762,388 Q752,378 742,388 Q752,398 762,388Z"/>
-        <path d="M762,412 Q752,422 742,412 Q752,402 762,412Z"/>
-
-        <!-- Delicate scattered petals -->
-        <path d="M200,100 Q210,85 220,100 Q210,115 200,100Z"/>
-        <path d="M580,100 Q590,85 600,100 Q590,115 580,100Z"/>
-        <path d="M130,200 Q115,210 130,220 Q145,210 130,200Z"/>
-        <path d="M670,200 Q655,210 670,220 Q685,210 670,200Z"/>
-        <path d="M100,580 Q85,590 100,600 Q115,590 100,580Z"/>
-        <path d="M700,580 Q685,590 700,600 Q715,590 700,580Z"/>
-        <path d="M200,700 Q210,685 220,700 Q210,715 200,700Z"/>
-        <path d="M580,700 Q590,685 600,700 Q590,715 580,700Z"/>
-      </g>
-    </svg>
+  <!-- Photo Panel -->
+  <div class="hero__photo-panel">
+    <img class="hero__photo" src="photos/hero.JPG" alt="Noel and Irene engagement photo" loading="eager" fetchpriority="high">
   </div>
 
-  <!-- Hero Content -->
-  <div class="hero__content">
+  <!-- Content Panel -->
+  <div class="hero__content-panel">
+
+    <!-- Corner floral accents -->
+    <div class="hero__floral-corner hero__floral-corner--tl" aria-hidden="true">
+      <svg width="130" height="130" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#f37894" stroke-opacity="0.22" stroke-width="1.3" stroke-linecap="round">
+          <path d="M12,12 Q24,0 36,12 Q24,24 12,12Z"/>
+          <path d="M12,12 Q0,24 12,36 Q24,24 12,12Z"/>
+          <path d="M12,12 Q30,30 48,12 Q30,-6 12,12Z"/>
+          <path d="M12,12 Q-6,30 12,48 Q30,30 12,12Z"/>
+          <path d="M12,12 L12,0 M12,12 L0,12"/>
+          <path d="M12,12 Q50,42 80,26"/>
+          <path d="M12,12 Q42,50 26,80"/>
+          <path d="M62,26 Q80,6 86,18 Q70,26 62,26Z"/>
+          <path d="M26,62 Q6,80 18,86 Q26,70 26,62Z"/>
+          <circle cx="12" cy="12" r="3.5"/>
+          <path d="M36,12 Q50,6 58,14 Q46,18 36,12Z"/>
+          <path d="M12,36 Q6,50 14,58 Q18,46 12,36Z"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero__floral-corner hero__floral-corner--br" aria-hidden="true">
+      <svg width="130" height="130" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#f37894" stroke-opacity="0.22" stroke-width="1.3" stroke-linecap="round">
+          <path d="M12,12 Q24,0 36,12 Q24,24 12,12Z"/>
+          <path d="M12,12 Q0,24 12,36 Q24,24 12,12Z"/>
+          <path d="M12,12 Q30,30 48,12 Q30,-6 12,12Z"/>
+          <path d="M12,12 Q-6,30 12,48 Q30,30 12,12Z"/>
+          <path d="M12,12 L12,0 M12,12 L0,12"/>
+          <path d="M12,12 Q50,42 80,26"/>
+          <path d="M12,12 Q42,50 26,80"/>
+          <path d="M62,26 Q80,6 86,18 Q70,26 62,26Z"/>
+          <path d="M26,62 Q6,80 18,86 Q26,70 26,62Z"/>
+          <circle cx="12" cy="12" r="3.5"/>
+          <path d="M36,12 Q50,6 58,14 Q46,18 36,12Z"/>
+          <path d="M12,36 Q6,50 14,58 Q18,46 12,36Z"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="hero__content">
 
     <!-- Cross SVG -->
     <div class="hero__cross" aria-hidden="true">
@@ -1262,16 +1486,18 @@ button, a {
 
     <p class="hero__date">Tuesday, the Seventh of July, Two Thousand and Twenty-Six</p>
 
-  </div>
+    </div><!-- end .hero__content -->
 
-  <!-- Scroll indicator -->
-  <a class="hero__scroll" href="#countdown" aria-label="Scroll to countdown">
-    <span class="hero__scroll-arrow" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 5v14M5 12l7 7 7-7" stroke="#f37894" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </span>
-  </a>
+    <!-- Scroll indicator -->
+    <a class="hero__scroll" href="#countdown" aria-label="Scroll to countdown">
+      <span class="hero__scroll-arrow" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 5v14M5 12l7 7 7-7" stroke="#f37894" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+
+  </div><!-- end .hero__content-panel -->
 
 </section>
 
@@ -1469,6 +1695,113 @@ button, a {
 </div>
 
 <!-- ============================================================
+     === SECTION DIVIDER ===
+     ============================================================ -->
+<div class="section-divider" aria-hidden="true">
+  <div class="section-divider__line"></div>
+  <svg width="20" height="16" viewBox="0 0 20 16" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 0 C10 0 0 4 0 9 C0 12.5 4.5 16 10 16 C15.5 16 20 12.5 20 9 C20 4 10 0 10 0Z" fill="#f37894" opacity="0.4"/>
+  </svg>
+  <div class="section-divider__line"></div>
+</div>
+
+<!-- ============================================================
+     === DRESS CODE SECTION ===
+     ============================================================ -->
+<section class="section dresscode reveal" id="dresscode" aria-label="Dress code">
+  <div class="container">
+    <header class="section__header">
+      <p class="section__eyebrow">Attire</p>
+      <h2 class="section__title">Dress Code</h2>
+    </header>
+
+    <!-- Color Palette Grid -->
+    <div class="dresscode__palette-wrap">
+
+      <!-- Gentlemen Column -->
+      <div class="dresscode__col">
+        <ul class="dresscode__swatches" aria-label="Men's colors">
+          <li class="dresscode__swatch-row">
+            <span class="dresscode__color-name">Baby Blue</span>
+            <span class="dresscode__color" style="background:#89CFF0" role="img" aria-label="Baby Blue swatch"></span>
+          </li>
+          <li class="dresscode__swatch-row">
+            <span class="dresscode__color-name">Dusty Blue</span>
+            <span class="dresscode__color" style="background:#6E86A0" role="img" aria-label="Dusty Blue swatch"></span>
+          </li>
+          <li class="dresscode__swatch-row">
+            <span class="dresscode__color-name">Cobalt Blue</span>
+            <span class="dresscode__color" style="background:#0047AB" role="img" aria-label="Cobalt Blue swatch"></span>
+          </li>
+          <li class="dresscode__swatch-row">
+            <span class="dresscode__color-name">Classic Navy Blue</span>
+            <span class="dresscode__color" style="background:#001b43" role="img" aria-label="Classic Navy Blue swatch"></span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Ladies Column -->
+      <div class="dresscode__col dresscode__col--right">
+        <ul class="dresscode__swatches" aria-label="Ladies' colors">
+          <li class="dresscode__swatch-row dresscode__swatch-row--flip">
+            <span class="dresscode__color-name dresscode__swatch-row--flip">Blush Pink / Baby Pink</span>
+            <span class="dresscode__color" style="background:#FFB3C1" role="img" aria-label="Blush Pink swatch"></span>
+          </li>
+          <li class="dresscode__swatch-row dresscode__swatch-row--flip">
+            <span class="dresscode__color-name dresscode__swatch-row--flip">Dusty Rose</span>
+            <span class="dresscode__color" style="background:#D4899C" role="img" aria-label="Dusty Rose swatch"></span>
+          </li>
+          <li class="dresscode__swatch-row dresscode__swatch-row--flip">
+            <span class="dresscode__color-name dresscode__swatch-row--flip">Muted Rose / Vintage Rose</span>
+            <span class="dresscode__color" style="background:#A86070" role="img" aria-label="Muted Rose swatch"></span>
+          </li>
+          <li class="dresscode__swatch-row dresscode__swatch-row--flip">
+            <span class="dresscode__color-name dresscode__swatch-row--flip">Deep Rose / Raspberry Rose</span>
+            <span class="dresscode__color" style="background:#8B2252" role="img" aria-label="Deep Rose swatch"></span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Formal Attire -->
+    <div class="dresscode__attire reveal" aria-label="Formal attire required">
+      <h3 class="dresscode__attire-title">Formal Attire</h3>
+      <div class="dresscode__icons" aria-hidden="true">
+
+        <!-- Suit SVG -->
+        <svg class="dresscode__icon" width="68" height="108" viewBox="0 0 68 108" xmlns="http://www.w3.org/2000/svg" aria-label="Men's suit">
+          <path d="M19,0 L0,30 L0,108 L68,108 L68,30 L49,0 L40,26 L34,19 L28,26 Z" fill="#0047AB"/>
+          <path d="M19,0 L28,26 L34,19 Z" fill="#002d80"/>
+          <path d="M49,0 L40,26 L34,19 Z" fill="#002d80"/>
+          <polygon points="28,26 34,44 40,26 34,19" fill="#ffffff"/>
+          <path d="M34,19 L28,14 L34,21 Z" fill="#f37894"/>
+          <path d="M34,19 L40,14 L34,21 Z" fill="#f37894"/>
+          <circle cx="34" cy="19" r="2.2" fill="#f37894"/>
+          <circle cx="34" cy="50" r="1.8" fill="#aac4e8"/>
+          <circle cx="34" cy="58" r="1.8" fill="#aac4e8"/>
+          <rect x="14" y="24" width="8" height="6" rx="1" fill="#ffffff" opacity="0.85"/>
+        </svg>
+
+        <!-- Dress SVG -->
+        <svg class="dresscode__icon" width="82" height="132" viewBox="0 0 82 132" xmlns="http://www.w3.org/2000/svg" aria-label="Ladies' formal dress">
+          <path d="M24,0 Q41,-4 58,0 L63,38 Q51,46 41,46 Q31,46 19,38 Z" fill="#f37894" opacity="0.88"/>
+          <path d="M19,38 Q2,62 1,98 Q0,118 12,132 L70,132 Q82,118 81,98 Q80,62 63,38 Q51,46 41,46 Q31,46 19,38 Z" fill="#f37894" opacity="0.78"/>
+          <path d="M27,1 Q34,13 41,11 Q48,13 55,1" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.55"/>
+          <path d="M27,1 Q22,0 20,12" fill="none" stroke="#f37894" stroke-width="3" opacity="0.88"/>
+          <path d="M55,1 Q60,0 62,12" fill="none" stroke="#f37894" stroke-width="3" opacity="0.88"/>
+          <path d="M23,42 Q41,52 59,42" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+          <path d="M16,65 Q10,92 12,118" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.18"/>
+          <path d="M66,65 Q72,92 70,118" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.18"/>
+        </svg>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
      === RSVP SECTION ===
      ============================================================ -->
 <section class="section rsvp" id="rsvp" aria-label="RSVP form">
@@ -1638,6 +1971,108 @@ button, a {
 </section>
 
 <!-- ============================================================
+     === GIFT SECTION ===
+     ============================================================ -->
+<section class="section gift reveal" id="gift" aria-label="Wedding gift information">
+  <div class="container">
+    <header class="section__header">
+      <p class="section__eyebrow">Bless the Couple</p>
+      <h2 class="section__title">A Gift of Love</h2>
+    </header>
+    <p class="gift__note">
+      Your presence is the greatest gift. For those who wish to bless us,<br>
+      you may send your gift through the following:
+    </p>
+
+    <div class="gift__grid">
+
+      <!-- GCash Card -->
+      <article class="gift__card reveal" aria-label="GCash payment details">
+        <div class="gift__card-icon" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="19" fill="none" stroke="#f37894" stroke-width="1.5"/>
+            <text x="20" y="25" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="11" fill="#f37894">GCash</text>
+          </svg>
+        </div>
+        <h3 class="gift__bank-name">GCash</h3>
+        <!-- QR placeholder — replace src with actual QR image or embed base64 -->
+        <div class="gift__qr-wrap" aria-label="GCash QR code placeholder">
+          <svg width="110" height="110" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="110" height="110" fill="white"/>
+            <!-- Top-left finder -->
+            <rect x="6" y="6" width="30" height="30" rx="3" fill="none" stroke="#001b43" stroke-width="3"/>
+            <rect x="13" y="13" width="16" height="16" rx="1" fill="#001b43"/>
+            <!-- Top-right finder -->
+            <rect x="74" y="6" width="30" height="30" rx="3" fill="none" stroke="#001b43" stroke-width="3"/>
+            <rect x="81" y="13" width="16" height="16" rx="1" fill="#001b43"/>
+            <!-- Bottom-left finder -->
+            <rect x="6" y="74" width="30" height="30" rx="3" fill="none" stroke="#001b43" stroke-width="3"/>
+            <rect x="13" y="81" width="16" height="16" rx="1" fill="#001b43"/>
+            <!-- Data modules (decorative pattern) -->
+            <rect x="44" y="6" width="6" height="6" fill="#001b43"/><rect x="52" y="6" width="6" height="6" fill="#001b43"/><rect x="60" y="6" width="6" height="6" fill="#001b43"/>
+            <rect x="44" y="14" width="6" height="6" fill="#001b43"/><rect x="60" y="14" width="6" height="6" fill="#001b43"/><rect x="68" y="14" width="6" height="6" fill="#001b43"/>
+            <rect x="44" y="22" width="6" height="6" fill="#001b43"/><rect x="52" y="22" width="6" height="6" fill="#001b43"/><rect x="68" y="22" width="6" height="6" fill="#001b43"/>
+            <rect x="44" y="44" width="6" height="6" fill="#001b43"/><rect x="60" y="44" width="6" height="6" fill="#001b43"/><rect x="74" y="44" width="6" height="6" fill="#001b43"/><rect x="98" y="44" width="6" height="6" fill="#001b43"/>
+            <rect x="44" y="52" width="6" height="6" fill="#001b43"/><rect x="52" y="52" width="6" height="6" fill="#001b43"/><rect x="68" y="52" width="6" height="6" fill="#001b43"/><rect x="82" y="52" width="6" height="6" fill="#001b43"/><rect x="98" y="52" width="6" height="6" fill="#001b43"/>
+            <rect x="44" y="60" width="6" height="6" fill="#001b43"/><rect x="74" y="60" width="6" height="6" fill="#001b43"/><rect x="90" y="60" width="6" height="6" fill="#001b43"/>
+            <rect x="44" y="68" width="6" height="6" fill="#001b43"/><rect x="52" y="68" width="6" height="6" fill="#001b43"/><rect x="60" y="68" width="6" height="6" fill="#001b43"/><rect x="74" y="68" width="6" height="6" fill="#001b43"/><rect x="98" y="68" width="6" height="6" fill="#001b43"/>
+            <rect x="44" y="76" width="6" height="6" fill="#001b43"/><rect x="68" y="76" width="6" height="6" fill="#001b43"/><rect x="82" y="76" width="6" height="6" fill="#001b43"/>
+            <rect x="44" y="84" width="6" height="6" fill="#001b43"/><rect x="52" y="84" width="6" height="6" fill="#001b43"/><rect x="60" y="84" width="6" height="6" fill="#001b43"/><rect x="82" y="84" width="6" height="6" fill="#001b43"/><rect x="90" y="84" width="6" height="6" fill="#001b43"/>
+            <rect x="44" y="92" width="6" height="6" fill="#001b43"/><rect x="60" y="92" width="6" height="6" fill="#001b43"/><rect x="74" y="92" width="6" height="6" fill="#001b43"/><rect x="98" y="92" width="6" height="6" fill="#001b43"/>
+            <!-- Center accent -->
+            <rect x="51" y="51" width="8" height="8" rx="1" fill="#f37894"/>
+          </svg>
+        </div>
+        <p style="font-family:var(--font-sans);font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:-0.25rem;margin-bottom:0.75rem;">Replace with your actual QR code</p>
+        <div class="gift__detail">
+          <p class="gift__detail-label">Account Name</p>
+          <p class="gift__detail-value">Noel M. Estrada</p>
+        </div>
+        <div class="gift__detail">
+          <p class="gift__detail-label">GCash Number</p>
+          <p class="gift__detail-value" id="gcash-num">09XX-XXX-XXXX</p>
+          <button class="gift__copy-btn" onclick="copyGift('gcash-num', this)" aria-label="Copy GCash number">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+      </article>
+
+      <!-- Bank Transfer Card -->
+      <article class="gift__card reveal" aria-label="Bank transfer details">
+        <div class="gift__card-icon" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="12" width="36" height="22" rx="3" fill="none" stroke="#f37894" stroke-width="1.5"/>
+            <path d="M2,18 L38,18" stroke="#f37894" stroke-width="1.5"/>
+            <rect x="6" y="22" width="8" height="4" rx="1" fill="#f37894" opacity="0.5"/>
+            <path d="M20,6 L8,12 L32,12 Z" fill="#f37894" opacity="0.7"/>
+          </svg>
+        </div>
+        <h3 class="gift__bank-name">Bank Transfer</h3>
+        <div class="gift__detail">
+          <p class="gift__detail-label">Bank</p>
+          <p class="gift__detail-value">BDO / LandBank</p>
+        </div>
+        <div class="gift__detail">
+          <p class="gift__detail-label">Account Name</p>
+          <p class="gift__detail-value">Noel M. Estrada</p>
+        </div>
+        <div class="gift__detail">
+          <p class="gift__detail-label">Account Number</p>
+          <p class="gift__detail-value" id="bank-num">XXXX-XXXX-XXXX</p>
+          <button class="gift__copy-btn" onclick="copyGift('bank-num', this)" aria-label="Copy bank account number">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+        <p style="font-family:var(--font-sans);font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.5rem;">Update with your actual account details</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
      === SECTION DIVIDER ===
      ============================================================ -->
 <div class="section-divider" aria-hidden="true">
@@ -1777,6 +2212,26 @@ button, a {
 </footer>
 
 <script>
+/* === GIFT COPY TO CLIPBOARD === */
+function copyGift(id, btn) {
+  const text = document.getElementById(id).textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+    }, 2500);
+  }).catch(() => {
+    const range = document.createRange();
+    range.selectNode(document.getElementById(id));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+  });
+}
+
 /* === COUNTDOWN TIMER === */
 (function () {
   const target = new Date('2026-07-07T13:00:00');
