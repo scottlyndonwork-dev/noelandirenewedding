@@ -1348,6 +1348,296 @@ button, a {
 }
 
 /* ============================================================
+   === INTRO / ENVELOPE OPENER ===
+   ============================================================ */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.25rem;
+  overflow: hidden;
+  will-change: transform;
+  transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.7s ease;
+}
+
+.intro.is-leaving {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Soft background radial tint */
+.intro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 55%,
+    rgba(243,120,148,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.intro__scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 190px;
+  animation: introIn 0.65s cubic-bezier(0.34, 1.4, 0.64, 1) 0.25s both;
+  will-change: transform;
+}
+
+@keyframes introIn {
+  from { opacity: 0; transform: scale(0.88) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* --- Envelope wrapper --- */
+.intro__env-wrap {
+  position: relative;
+  width: 280px;
+  height: 185px;
+  animation: envShake 0.55s ease 1.1s;
+  will-change: transform;
+}
+
+@keyframes envShake {
+  0%,100% { transform: rotate(0deg); }
+  20%     { transform: translateX(-5px) rotate(-2deg); }
+  45%     { transform: translateX(5px) rotate(2deg); }
+  65%     { transform: translateX(-3px) rotate(-1deg); }
+  85%     { transform: translateX(3px) rotate(1deg); }
+}
+
+/* --- Envelope body --- */
+.intro__env-body {
+  position: absolute;
+  inset: 0;
+  background: var(--color-white);
+  border: 2px solid var(--color-navy);
+  border-radius: 4px;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Diagonal fold lines inside envelope */
+.intro__env-body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, transparent 49.5%, rgba(0,27,67,0.09) 49.5%, rgba(0,27,67,0.09) 50.5%, transparent 50.5%),
+    linear-gradient(225deg, transparent 49.5%, rgba(0,27,67,0.09) 49.5%, rgba(0,27,67,0.09) 50.5%, transparent 50.5%);
+}
+
+/* Pink wax seal */
+.intro__env-seal {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+/* --- Envelope flap (collapses upward to open) --- */
+.intro__env-flap {
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 282px;
+  height: 97px;
+  background: var(--color-navy);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  z-index: 5;
+  will-change: transform, opacity;
+  animation: flapOpen 0.6s cubic-bezier(0.55, 0, 1, 0.45) 1.6s forwards;
+}
+
+/* Subtle pink tint on inner flap face */
+.intro__env-flap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(243, 120, 148, 0.16);
+  clip-path: polygon(1.5% 0, 98.5% 0, 50% 95%);
+}
+
+@keyframes flapOpen {
+  0%   { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(0); opacity: 0; }
+}
+
+/* --- Letter / invitation card --- */
+.intro__letter {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  width: 236px;
+  background: var(--color-white);
+  border: 1px solid rgba(0,27,67,0.1);
+  box-shadow: 0 12px 40px rgba(0,27,67,0.16);
+  border-radius: 3px;
+  padding: 1.5rem 1.25rem 1.25rem;
+  text-align: center;
+  z-index: 3;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: letterRise 0.75s cubic-bezier(0.22, 1, 0.36, 1) 2.1s forwards;
+}
+
+.intro__letter::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--color-pink);
+  border-radius: 3px 3px 0 0;
+}
+
+@keyframes letterRise {
+  from { opacity: 0; transform: translateX(-50%) translateY(18px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(-198px); }
+}
+
+/* Letter content — staggered reveal */
+.intro__letter-cross {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.65rem;
+  opacity: 0;
+  animation: fadeUp 0.45s ease 2.75s forwards;
+}
+
+.intro__letter-invited {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-bottom: 0.6rem;
+  opacity: 0;
+  animation: fadeUp 0.45s ease 2.9s forwards;
+}
+
+.intro__letter-names {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 6vw, 1.9rem);
+  color: var(--color-navy);
+  line-height: 1.15;
+  margin-bottom: 0.4rem;
+  opacity: 0;
+  animation: fadeUp 0.45s ease 3.05s forwards;
+}
+
+.intro__letter-amp {
+  color: var(--color-pink);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.intro__letter-rule {
+  width: 40px;
+  height: 1px;
+  background: var(--color-pink);
+  margin: 0.5rem auto;
+  opacity: 0;
+  animation: fadeUp 0.45s ease 3.15s forwards;
+}
+
+.intro__letter-date {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.8rem;
+  color: rgba(0,27,67,0.5);
+  line-height: 1.5;
+  opacity: 0;
+  animation: fadeUp 0.45s ease 3.25s forwards;
+}
+
+/* --- Open button --- */
+.intro__cta-wrap {
+  opacity: 0;
+  animation: fadeUp 0.6s ease 3.8s forwards;
+}
+
+.intro__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-navy);
+  color: var(--color-white);
+  border: 2px solid var(--color-navy);
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 2rem;
+  cursor: pointer;
+  min-height: 48px;
+  transition: background var(--transition-base),
+              color var(--transition-base),
+              transform var(--transition-base);
+  animation: ctaPulse 2s ease 5s infinite;
+}
+
+.intro__cta:hover { background: transparent; color: var(--color-navy); }
+.intro__cta:active { transform: scale(0.97); }
+
+@keyframes ctaPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(0,27,67,0.18); }
+  50%      { box-shadow: 0 0 0 10px rgba(0,27,67,0); }
+}
+
+/* --- Skip button --- */
+.intro__skip {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0,27,67,0.28);
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  min-height: 48px;
+  transition: color var(--transition-base);
+  opacity: 0;
+  animation: fadeUp 0.4s ease 2.2s forwards;
+}
+
+.intro__skip:hover { color: var(--color-navy); }
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .intro__env-wrap,
+  .intro__env-flap,
+  .intro__letter,
+  .intro__letter-cross,
+  .intro__letter-invited,
+  .intro__letter-names,
+  .intro__letter-rule,
+  .intro__letter-date,
+  .intro__cta-wrap,
+  .intro__skip,
+  .intro__scene,
+  .intro__cta { animation: none !important; opacity: 1 !important; }
+  .intro__letter { transform: translateX(-50%) translateY(-198px) !important; }
+  .intro__env-flap { display: none !important; }
+  .intro.is-leaving { transition: none !important; display: none !important; }
+}
+
+/* ============================================================
    === MISC UTILITIES ===
    ============================================================ */
 .container {
@@ -1367,6 +1657,61 @@ button, a {
 </head>
 
 <body>
+
+<!-- ============================================================
+     === INTRO ENVELOPE OPENER ===
+     ============================================================ -->
+<div id="intro" class="intro" role="dialog" aria-modal="true" aria-label="Wedding invitation opener">
+
+  <div class="intro__scene">
+    <div class="intro__env-wrap">
+
+      <!-- Letter / invitation card (rises from inside the envelope) -->
+      <div class="intro__letter">
+        <div class="intro__letter-cross" aria-hidden="true">
+          <svg width="18" height="22" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
+            <rect x="7" y="0" width="4" height="22" rx="1" fill="#f37894" opacity="0.8"/>
+            <rect x="0" y="6" width="18" height="4" rx="1" fill="#f37894" opacity="0.8"/>
+          </svg>
+        </div>
+        <p class="intro__letter-invited">You Are Invited</p>
+        <h2 class="intro__letter-names">
+          Noel <span class="intro__letter-amp">&amp;</span> Irene
+        </h2>
+        <div class="intro__letter-rule" aria-hidden="true"></div>
+        <p class="intro__letter-date">July 7, 2026<br>Lanao del Norte</p>
+      </div>
+
+      <!-- Envelope body -->
+      <div class="intro__env-body">
+        <div class="intro__env-seal" aria-hidden="true">
+          <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="25" cy="25" r="23" fill="rgba(243,120,148,0.10)" stroke="#f37894" stroke-width="1.5"/>
+            <circle cx="25" cy="25" r="15" fill="none" stroke="#f37894" stroke-width="0.8" opacity="0.45"/>
+            <rect x="22" y="11" width="3.5" height="28" rx="1.5" fill="#f37894" opacity="0.65"/>
+            <rect x="11" y="22" width="28" height="3.5" rx="1.5" fill="#f37894" opacity="0.65"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Flap (collapses upward to open the envelope) -->
+      <div class="intro__env-flap" aria-hidden="true"></div>
+
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="intro__cta-wrap">
+    <button class="intro__cta" id="intro-cta" aria-label="Open the wedding invitation">
+      Open Invitation
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+  </div>
+
+  <button class="intro__skip" id="intro-skip" aria-label="Skip intro">Skip</button>
+</div>
 
 <!-- ============================================================
      === HERO SECTION ===
@@ -2128,6 +2473,30 @@ button, a {
 </footer>
 
 <script>
+/* === INTRO ENVELOPE OPENER === */
+(function () {
+  const intro  = document.getElementById('intro');
+  const cta    = document.getElementById('intro-cta');
+  const skip   = document.getElementById('intro-skip');
+  if (!intro) return;
+
+  document.body.style.overflow = 'hidden';
+
+  function openInvitation() {
+    clearTimeout(autoTimer);
+    intro.classList.add('is-leaving');
+    setTimeout(() => {
+      intro.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 950);
+  }
+
+  cta.addEventListener('click', openInvitation);
+  skip.addEventListener('click', openInvitation);
+
+  const autoTimer = setTimeout(openInvitation, 9000);
+})();
+
 /* === GIFT COPY TO CLIPBOARD === */
 function copyGift(id, btn) {
   const text = document.getElementById(id).textContent.trim();
