@@ -443,80 +443,143 @@ button, a {
 
 .details__card {
   background: var(--color-white);
-  border: 2px solid var(--color-navy);
-  border-radius: 12px;
-  padding: 2rem 1.75rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 2px 8px rgba(0,27,67,0.07),
+    0 8px 32px rgba(0,27,67,0.10);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.details__card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 4px 16px rgba(0,27,67,0.10),
+    0 16px 48px rgba(0,27,67,0.15);
+}
+
+/* === Card header (navy) === */
+.details__card-header {
+  background: var(--color-navy);
+  padding: 1.75rem 1.75rem 1.5rem;
   position: relative;
   overflow: hidden;
 }
 
-.details__card::before {
+/* Decorative circle accent */
+.details__card-header::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--color-pink);
+  top: -40px; right: -40px;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: rgba(243,120,148,0.12);
+}
+
+.details__card-header::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; right: 30px;
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: rgba(243,120,148,0.07);
 }
 
 .details__card-eyebrow {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  background: rgba(243,120,148,0.18);
   color: var(--color-pink);
-  margin-bottom: 0.5rem;
+  border: 1px solid rgba(243,120,148,0.35);
+  border-radius: 999px;
+  padding: 0.25rem 0.85rem;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: 0.85rem;
 }
 
 .details__card-title {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: 1.7rem;
-  color: var(--color-navy);
-  margin-bottom: 0.35rem;
+  font-size: clamp(1.25rem, 3vw, 1.55rem);
+  color: var(--color-white);
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
 }
 
 .details__denomination {
   font-family: var(--font-sans);
   font-weight: 300;
-  font-size: 0.8rem;
-  color: var(--color-navy-70);
-  margin-bottom: 1.25rem;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
   font-style: italic;
+}
+
+/* === Card body (white) === */
+.details__card-body {
+  padding: 1.5rem 1.75rem 1.75rem;
 }
 
 .details__info-row {
   display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin-bottom: 0.9rem;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(0,27,67,0.07);
+}
+
+.details__info-row:last-of-type {
+  border-bottom: none;
 }
 
 .details__icon {
+  width: 38px;
+  height: 38px;
+  background: rgba(243,120,148,0.10);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  margin-top: 2px;
 }
 
 .details__info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
   font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 0.95rem;
   color: var(--color-navy);
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .details__info-text strong {
   font-weight: 400;
+  font-size: 0.92rem;
   display: block;
+  color: var(--color-navy);
+}
+
+.details__info-text span,
+.details__info-text:not(strong) {
+  font-weight: 300;
+  font-size: 0.78rem;
+  color: rgba(0,27,67,0.55);
 }
 
 .details__actions {
   display: flex;
-  flex-direction: column;
   gap: 0.75rem;
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.details__actions .btn {
+  flex: 1;
+  font-size: 0.82rem;
+  padding: 0.7rem 1rem;
 }
 
 .btn {
@@ -1531,38 +1594,42 @@ button, a {
 
       <!-- Ceremony Card -->
       <article class="details__card reveal" aria-label="Ceremony details">
-        <p class="details__card-eyebrow">Ceremony</p>
-        <h3 class="details__card-title">Bethel Fundamental Baptist Church</h3>
+        <div class="details__card-header">
+          <p class="details__card-eyebrow">Ceremony</p>
+          <h3 class="details__card-title">Bethel Fundamental Baptist Church</h3>
+          <p class="details__denomination">Fundamental Baptist Church</p>
+        </div>
+        <div class="details__card-body">
 
         <div class="details__info-row">
           <span class="details__icon" aria-hidden="true">
-            <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="16" height="20" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M9 0C5.13 0 2 3.13 2 7c0 5.25 7 15 7 15s7-9.75 7-15c0-3.87-3.13-7-7-7z" stroke="#f37894" stroke-width="1.5" fill="none"/>
               <circle cx="9" cy="7" r="2.5" stroke="#f37894" stroke-width="1.5" fill="none"/>
             </svg>
           </span>
           <div class="details__info-text">
             <strong>Purok Guiho, Maranding Lala</strong>
-            Lanao del Norte
+            <span>Lanao del Norte</span>
           </div>
         </div>
 
         <div class="details__info-row">
           <span class="details__icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="10" cy="10" r="8.5" stroke="#f37894" stroke-width="1.5"/>
               <path d="M10 5v5.5l3.5 2" stroke="#f37894" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </span>
           <div class="details__info-text">
             <strong>1:00 PM</strong>
-            Doors open at 12:30 PM
+            <span>Doors open at 12:30 PM</span>
           </div>
         </div>
 
         <div class="details__info-row">
           <span class="details__icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="1.5" y="3.5" width="17" height="15" rx="2" stroke="#f37894" stroke-width="1.5"/>
               <path d="M1.5 8h17" stroke="#f37894" stroke-width="1.5"/>
               <path d="M6 1.5v4M14 1.5v4" stroke="#f37894" stroke-width="1.5" stroke-linecap="round"/>
@@ -1575,49 +1642,54 @@ button, a {
 
         <div class="details__actions">
           <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--primary" aria-label="Open ceremony location in Google Maps">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 0C4.24 0 2 2.24 2 5c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="currentColor"/></svg>
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 0C4.24 0 2 2.24 2 5c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="currentColor"/></svg>
             View on Map
           </a>
           <button class="btn btn--outline" onclick="generateICS('ceremony')" aria-label="Add ceremony to calendar">
             Add to Calendar
           </button>
         </div>
+        </div>
       </article>
 
       <!-- Reception Card -->
       <article class="details__card reveal" aria-label="Reception details">
-        <p class="details__card-eyebrow">Reception</p>
-        <h3 class="details__card-title">Horizon Resort &amp; Splashway</h3>
+        <div class="details__card-header">
+          <p class="details__card-eyebrow">Reception</p>
+          <h3 class="details__card-title">Horizon Resort &amp; Splashway</h3>
+          <p class="details__denomination">Bag-ong Dawis, Baroy</p>
+        </div>
+        <div class="details__card-body">
 
         <div class="details__info-row">
           <span class="details__icon" aria-hidden="true">
-            <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="16" height="20" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M9 0C5.13 0 2 3.13 2 7c0 5.25 7 15 7 15s7-9.75 7-15c0-3.87-3.13-7-7-7z" stroke="#f37894" stroke-width="1.5" fill="none"/>
               <circle cx="9" cy="7" r="2.5" stroke="#f37894" stroke-width="1.5" fill="none"/>
             </svg>
           </span>
           <div class="details__info-text">
             <strong>Bag-ong Dawis, Baroy</strong>
-            Lanao del Norte
+            <span>Lanao del Norte</span>
           </div>
         </div>
 
         <div class="details__info-row">
           <span class="details__icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="10" cy="10" r="8.5" stroke="#f37894" stroke-width="1.5"/>
               <path d="M10 5v5.5l3.5 2" stroke="#f37894" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </span>
           <div class="details__info-text">
             <strong>Following the Ceremony</strong>
-            Reception begins after 1:00 PM
+            <span>Reception begins after 1:00 PM</span>
           </div>
         </div>
 
         <div class="details__info-row">
           <span class="details__icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="1.5" y="3.5" width="17" height="15" rx="2" stroke="#f37894" stroke-width="1.5"/>
               <path d="M1.5 8h17" stroke="#f37894" stroke-width="1.5"/>
               <path d="M6 1.5v4M14 1.5v4" stroke="#f37894" stroke-width="1.5" stroke-linecap="round"/>
@@ -1636,6 +1708,7 @@ button, a {
           <button class="btn btn--outline" onclick="generateICS('reception')" aria-label="Add reception to calendar">
             Add to Calendar
           </button>
+        </div>
         </div>
       </article>
 
