@@ -2128,10 +2128,12 @@ button, a {
 </footer>
 
 <script>
-/* === INTRO GUARD — redirect to index if user skipped the intro === */
+/* === INTRO GUARD — always return to intro on refresh or direct visit === */
 (function () {
   if (!sessionStorage.getItem('intro_seen')) {
     window.location.replace('index.html');
+  } else {
+    sessionStorage.removeItem('intro_seen'); /* clear so refresh goes back to intro */
   }
 })();
 
