@@ -797,31 +797,34 @@ document.addEventListener('DOMContentLoaded', function () {
      STAGE 1 → 2 : After 2.5 s, fade loading and show envelope
      ============================================================ */
   setTimeout(function () {
-    stageLoading.classList.add('is-fading');
-    announce('Invitation ready. Tap the envelope to open it.');
+    let envelopeShown = false;
 
     function showEnvelope() {
+      if (envelopeShown) return;
+      envelopeShown = true;
       stageLoading.classList.add('is-gone');
       stageEnvelope.classList.remove('is-gone');
-      /* Force reflow then fade in */
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
           stageEnvelope.style.opacity = '1';
           stageEnvelope.style.transition = 'opacity 0.5s ease';
         });
       });
+      announce('Invitation ready. Tap the envelope to open it.');
     }
+
+    stageLoading.classList.add('is-fading');
 
     if (prefersReduced) {
       showEnvelope();
     } else {
+      const fallback = setTimeout(showEnvelope, 700);
       stageLoading.addEventListener('transitionend', function handler(e) {
         if (e.propertyName !== 'opacity') return;
+        clearTimeout(fallback);
         showEnvelope();
         stageLoading.removeEventListener('transitionend', handler);
-      });
-      /* Fallback in case transitionend is unreliable */
-      setTimeout(showEnvelope, 700);
+      }, { once: true });
     }
   }, 2500);
 
