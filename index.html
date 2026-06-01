@@ -892,7 +892,10 @@ document.addEventListener('DOMContentLoaded', function () {
     announce('Opening invitation website…');
     outroOverlay.classList.add('is-fading');
 
-    function navigate() { window.location.href = 'invitation.html'; }
+    function navigate() {
+      sessionStorage.setItem('intro_seen', '1');
+      window.location.href = 'invitation.html';
+    }
 
     if (prefersReduced) {
       navigate();

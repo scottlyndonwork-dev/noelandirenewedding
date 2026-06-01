@@ -2128,6 +2128,13 @@ button, a {
 </footer>
 
 <script>
+/* === INTRO GUARD — redirect to index if user skipped the intro === */
+(function () {
+  if (!sessionStorage.getItem('intro_seen')) {
+    window.location.replace('index.html');
+  }
+})();
+
 /* === GIFT COPY TO CLIPBOARD === */
 function copyGift(id, btn) {
   const text = document.getElementById(id).textContent.trim();
