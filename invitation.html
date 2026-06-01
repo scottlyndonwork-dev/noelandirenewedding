@@ -2417,31 +2417,52 @@ function generateICS(type) {
     if (!guestsOk) valid = false;
 
     if (!valid) {
-      // Focus first error field
       const firstError = form.querySelector('.error, .form__error.visible');
       if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
 
-    // Build mailto fallback
+    // Disable submit button while sending
+    const submitBtn = form.querySelector('[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    // Build payload for Web3Forms
     const dietary = form.querySelector('#rsvp-dietary').value.trim();
-    const message = form.querySelector('#rsvp-message').value.trim();
-    const body = [
-      `Name: ${name.value.trim()}`,
-      `Email: ${email.value.trim()}`,
-      `Attending: ${attending.value}`,
-      `Guests: ${guests.value}`,
-      dietary ? `Dietary: ${dietary}` : '',
-      message ? `Message: ${message}` : '',
-    ].filter(Boolean).join('\n');
+    const msgVal  = form.querySelector('#rsvp-message').value.trim();
 
-    const mailtoHref = `mailto:scottlyndonwork@gmail.com?subject=RSVP%20from%20${encodeURIComponent(name.value.trim())}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoHref;
+    const formData = new FormData();
+    formData.append('access_key',  '50705fb9-a81c-4a73-ba56-8e43799193a6');
+    formData.append('subject',     `RSVP from ${name.value.trim()} — Noel & Irene Wedding`);
+    formData.append('from_name',   'Wedding RSVP Form');
+    formData.append('Name',        name.value.trim());
+    formData.append('Email',       email.value.trim());
+    formData.append('Attending',   attending.value === 'yes' ? 'Joyfully Accepts' : 'Regretfully Declines');
+    formData.append('Guests',      guests.value);
+    if (dietary) formData.append('Dietary Restrictions', dietary);
+    if (msgVal)  formData.append('Message', msgVal);
 
-    // Show success state
-    form.style.display = 'none';
-    success.classList.add('visible');
-    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      if (data.success) {
+        form.style.display = 'none';
+        success.classList.add('visible');
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send RSVP with Love';
+        alert('Something went wrong. Please try again.');
+      }
+    })
+    .catch(function () {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send RSVP with Love';
+      alert('Network error. Please check your connection and try again.');
+    });
   });
 
   // Live clear errors on input
