@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Noel Estrada &amp; Irene Tapiahan Wedding Invitation — July 7, 2026">
 <title>Noel & Irene — Wedding Invitation</title>
+<link rel="icon" href="photos/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="photos/favicon.png">
 
 <style>
 /* === GOOGLE FONTS === */
@@ -173,7 +175,7 @@ button, a {
   animation: heroPop 0.8s ease forwards;
   animation-delay: 0.2s;
   will-change: transform;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.75rem;
   display: flex;
   justify-content: center;
 }
@@ -1411,6 +1413,208 @@ button, a {
 }
 
 /* ============================================================
+   === STICKY NAVIGATION ===
+   ============================================================ */
+.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(0, 27, 67, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(243, 120, 148, 0.18);
+  transform: translateY(-100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.site-nav.visible {
+  transform: translateY(0);
+}
+
+.site-nav__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.site-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  flex-shrink: 0;
+  min-height: auto;
+  min-width: auto;
+}
+
+.site-nav__logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 1.5px solid rgba(243, 120, 148, 0.45);
+  padding: 3px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.site-nav__brand-name {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--color-white);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.site-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.site-nav__link {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  padding: 0.45rem 0.75rem;
+  border-radius: 4px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  white-space: nowrap;
+  min-height: auto;
+  min-width: auto;
+}
+
+.site-nav__link:hover {
+  color: var(--color-pink);
+  background: rgba(243, 120, 148, 0.08);
+}
+
+.site-nav__link.active {
+  color: var(--color-pink);
+}
+
+.site-nav__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 8px;
+  min-height: auto;
+  min-width: auto;
+  cursor: pointer;
+}
+
+.site-nav__toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-white);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.site-nav__toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 700px) {
+  .site-nav__links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: rgba(0, 27, 67, 0.98);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.75rem 1rem 1rem;
+    gap: 0.2rem;
+    border-bottom: 1px solid rgba(243, 120, 148, 0.18);
+  }
+
+  .site-nav__links.open {
+    display: flex;
+  }
+
+  .site-nav__link {
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+  }
+
+  .site-nav__toggle {
+    display: flex;
+  }
+}
+
+/* ============================================================
+   === HERO LOGO ===
+   ============================================================ */
+.hero__logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  border: 2px solid rgba(243, 120, 148, 0.35);
+  box-shadow:
+    0 0 0 10px rgba(243, 120, 148, 0.07),
+    0 0 0 20px rgba(243, 120, 148, 0.03),
+    0 12px 40px rgba(0, 27, 67, 0.18);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 14px;
+}
+
+.hero__logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 27, 67, 0.12));
+}
+
+/* ============================================================
+   === FOOTER LOGO ===
+   ============================================================ */
+.footer__logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(243, 120, 148, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  margin: 0 auto 1.25rem;
+}
+
+.footer__logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1) opacity(0.82);
+}
+
+/* ============================================================
    === MISC UTILITIES ===
    ============================================================ */
 .container {
@@ -1430,6 +1634,30 @@ button, a {
 </head>
 
 <body>
+
+<!-- ============================================================
+     === STICKY NAVIGATION ===
+     ============================================================ -->
+<header class="site-nav" id="site-nav" role="banner" aria-label="Site navigation">
+  <div class="site-nav__inner">
+    <a class="site-nav__brand" href="#" aria-label="Back to top">
+      <img src="photos/favicon.png" alt="" width="34" height="34" class="site-nav__logo" loading="eager">
+      <span class="site-nav__brand-name">Noel &amp; Irene</span>
+    </a>
+    <nav class="site-nav__links" id="site-nav-links" aria-label="Page sections">
+      <a href="#details" class="site-nav__link">Details</a>
+      <a href="#gallery" class="site-nav__link">Gallery</a>
+      <a href="#rsvp" class="site-nav__link">RSVP</a>
+      <a href="#gift" class="site-nav__link">Gift</a>
+      <a href="#party" class="site-nav__link">Entourage</a>
+    </nav>
+    <button class="site-nav__toggle" id="site-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav-links">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
 
 <!-- ============================================================
      === HERO SECTION ===
@@ -1485,12 +1713,11 @@ button, a {
 
     <div class="hero__content">
 
-    <!-- Cross SVG -->
-    <div class="hero__cross" aria-hidden="true">
-      <svg width="36" height="44" viewBox="0 0 36 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="14" y="0" width="8" height="44" rx="2" fill="#f37894" opacity="0.75"/>
-        <rect x="0" y="12" width="36" height="8" rx="2" fill="#f37894" opacity="0.75"/>
-      </svg>
+    <!-- Logo / Crest -->
+    <div class="hero__cross">
+      <div class="hero__logo-wrap">
+        <img src="photos/favicon.png" alt="Noel and Irene wedding crest" width="120" height="120" class="hero__logo-img">
+      </div>
     </div>
 
     <h1 class="hero__names">Noel &amp; Irene</h1>
@@ -2130,6 +2357,9 @@ button, a {
      === FOOTER ===
      ============================================================ -->
 <footer class="footer" role="contentinfo" aria-label="Wedding footer">
+  <div class="footer__logo-wrap">
+    <img src="photos/favicon.png" alt="Noel and Irene wedding crest" width="68" height="68" class="footer__logo-img">
+  </div>
   <p class="footer__names">Noel &amp; Irene</p>
   <p class="footer__date">July 7, 2026</p>
   <p class="footer__faith">With love &amp; faith ✝</p>
@@ -2309,6 +2539,53 @@ function generateICS(type) {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+/* === STICKY NAVIGATION === */
+(function () {
+  const nav    = document.getElementById('site-nav');
+  const toggle = document.getElementById('site-nav-toggle');
+  const links  = document.getElementById('site-nav-links');
+  const hero   = document.querySelector('.hero');
+
+  if (!nav || !hero) return;
+
+  /* Show nav after hero scrolls out of view */
+  const heroObs = new IntersectionObserver(
+    ([entry]) => nav.classList.toggle('visible', !entry.isIntersecting),
+    { threshold: 0.15 }
+  );
+  heroObs.observe(hero);
+
+  /* Mobile hamburger toggle */
+  toggle.addEventListener('click', function () {
+    const isOpen = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  /* Close menu on nav link click */
+  links.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* Active section highlighting */
+  const sectionIds = ['details', 'gallery', 'rsvp', 'gift', 'party'];
+  const sectionEls = sectionIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+  const activeObs = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        const link = links.querySelector('a[href="#' + entry.target.id + '"]');
+        if (link) link.classList.toggle('active', entry.isIntersecting);
+      });
+    },
+    { rootMargin: '-15% 0px -70% 0px' }
+  );
+
+  sectionEls.forEach(function (el) { activeObs.observe(el); });
+})();
 
 /* === RSVP FORM VALIDATION & SUBMISSION === */
 (function () {
